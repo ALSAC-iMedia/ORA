@@ -1,0 +1,28 @@
+@keyframes spinner {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@mixin spinner(
+		$size: 1em,
+		$color: $base,
+		$speed: 1s,
+		$placement: 'after'
+	) {
+	
+	&:#{$placement} {
+		font-family: 'sj-icons';
+		font-size: $size;
+		width: $size;
+		height: $size;
+		color: $color;
+		content: '\21BB';
+		transition: transform $speed linear;
+		transform-origin: center;
+		animation: spinner $speed linear infinite;
+		opacity: 1;
+	}
+	&:hover:after {
+
+	}
+}

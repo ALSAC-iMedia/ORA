@@ -1,0 +1,83 @@
+//Choose the components you wish to utilize. 
+//Be aware, some of these components also require javascript
+
+//Utilities
+@import "libs/core/normalize"; // Normalize Reset
+@import "libs/elements/accents";
+
+//Grid
+@import "libs/core/grid";
+@import "libs/elements/flex-box"; // Flex box mixins
+
+//Typography
+@import "libs/core/type"; // global typography
+@import "libs/elements/blockquote";
+
+
+.test3{padding:100000px;}
+
+@import "libs/elements/buttons";
+
+.test2{padding:100000px;}
+
+
+
+
+// Responsive Elements
+@import "libs/elements/img";
+@import "libs/elements/video";
+
+//Navigation
+//@import "libs/elements/nav-bar";
+@import "libs/elements/breadcrumb";
+@import "libs/elements/nav-list";
+@import "libs/elements/nav-offcanvas";
+
+//Forms
+@import "libs/elements/buttons";
+@import "libs/elements/input";
+@import "libs/elements/forms";
+
+//Tables
+@import "libs/elements/tables";
+
+//Wrapper
+
+@import "libs/elements/wrapper";
+
+//Modal
+@import "libs/elements/modal";
+
+//Toolbox
+@import "libs/elements/toolbox";
+
+// Cards
+@import "libs/elements/cards";
+
+// Tabs
+//@import "libs/elements/tabs";
+
+// Accordion
+@import "libs/elements/accordion";
+
+// Slide Deck
+@import "libs/elements/deck";
+
+// Carousel
+@import "libs/elements/carousel";
+
+// Gallery
+@import "libs/elements/gallery";
+
+// Hero
+@import "libs/elements/hero";
+
+// Sticky Footer Bar
+@import "libs/elements/sticky-bar";
+@import "libs/elements/back-to-top";
+
+//Loading Spinner
+@import "libs/elements/spinner";
+
+//Mosaic
+@import "libs/elements/mosaic";

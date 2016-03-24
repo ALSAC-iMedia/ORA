@@ -1,0 +1,76 @@
+.hidden{
+	opacity:0;
+	display:none;
+    }
+
+
+.slide-box .individial-tickets.selected {
+    opacity: 1;
+	z-index:9;
+	}
+
+.slide-box .sponsorship-tickets.selected {
+    opacity: 1;
+	z-index:9;
+	}
+
+
+
+#new-return-user{
+	position:absolute;
+    top:250px;
+    width: 50vw;
+    left:25vw;
+    margin-top:100px;
+    transition:.5s;
+    opacity:0;
+    }
+
+#new-return-user.selected{
+    opacity: 1;
+    margin-top:0px;
+    }
+
+ #new-return-user li{
+ 	list-style:none;}  
+
+ #ticket-order-number li{
+	transition:.5s;
+ 	}
+ 
+ #ticket-order-number li.slide-out{
+	transform:translateY(-100%);     
+	} 
+
+ p.returning_user {
+ 	font-size:.85em;
+    } 
+
+  #event-ticket-purchase{@include form-base(); @include form-style(); }
+
+    #new-return-user.slide-out {
+	transform:translateY(-120%);     
+	} 
+
+
+.returning-user-view {
+    left: 25vw;
+    width: 50vw;
+}
+
+#payment-container-wrapper{
+    position:absolute;
+    top:250px;
+    width: 50vw;
+    left:25vw;
+    margin-top:100px;
+    transition:.5s;
+    opacity:0;
+    }
+
+#payment-container-wrapper.selected{
+	opacity: 1;
+    margin-top:0px;
+    }
+
+.returning-user-view{list-style:none;}

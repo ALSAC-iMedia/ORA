@@ -1,0 +1,41 @@
+// //----------------------------------------------
+// // Accent Mixin
+// //----------------------------------------------
+
+// // Defines color themeing used by other components
+// // Set your color in Theme Config file at the site level
+@mixin accents(
+	$color-theme: light,
+	$dark-text-default: $grey-90,
+	$light-text-default: $inverse,
+	$text-link-border-bottom-style: 1px dotted,
+	$text-link-hover-color: #00CFFF
+	){
+
+	[class*="accent-"] {
+		p, b, strong, i, em, blockquote,
+		h1, h2, h3, h4, h5, h6, 
+		ul, ol, li, a { color: inherit; }
+
+		.delineator {
+			border-color: inherit;
+		}
+	}
+	@each $accent in $accents {
+		$accent-name: nth($accent, 1);
+		$accent-color: nth($accent, 2);
+		.#{$accent-name} {
+			&, [class*="accent-"] &, [class*="accent-"] [class*="accent-"] & {
+				background-color: $accent-color;
+				color: color-contrast($accent-color, $dark-text-default, $light-text-default);
+				a { color: color-contrast($accent-color, $link-color, $light-text-default) !important; }
+				blockquote{ &:before, &:after {
+					 background-color: $accent-color;
+				}}
+				.delineator {
+					border-color: color-contrast($accent-color, $delineator-color, $inverse);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,171 @@
+// //----------------------------------------------
+// // Mosaic Mixin
+// //----------------------------------------------
+
+@mixin mosaic-slide-base()
+	{
+
+    // initial state
+    .mosaic-slide {
+        position: relative;
+
+        .initial{
+            width: 100%;
+            height: 100%;
+            display: table;
+
+            .img-overlay{
+                transition: opacity .25s ease-out;
+                opacity: 0.6; 
+                filter: alpha(opacity=60);
+            }
+        }
+        // Always On
+        &.trans-1{
+            // transition: max-height .25s ease-in-out, opacity .25s ease-out;
+            // opacity: 1; 
+            // max-height: 200;
+            // overflow: hidden;
+        }
+
+        // Nothing On Intial
+        &.trans-2 .wrapper .parsys > *{
+            transition: max-height 400ms ease-in-out, opacity 500ms ease-out;
+            opacity: 0; 
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        // Just Headline
+        &.trans-3 .wrapper .wrapper{
+            transition: max-height .25s ease-in-out, opacity .25s ease-out;
+            opacity: 0; 
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        // .hover{
+        //     position: absolute;
+        //     top:0;
+        //     left:0;
+        //     opacity: 0;
+        //     z-index:20;
+        //     width: 100%;
+        //     height: 100%;
+        //     transition: opacity 0.5s ease, transform 0.5s ease;
+        //     display: table;
+        // }
+
+        &.ms-grid-horiz-25{
+            width: 25%;
+
+            @include breakpoint($mobile-bp) {
+            	width: 100%;
+            }
+
+        }
+
+        &.ms-grid-horiz-50{
+            width: 50%;
+
+           	@include breakpoint($mobile-bp) {
+            	width: 100%;
+            }
+        }
+
+        &.ms-grid-horiz-75{
+            width: 75%;
+
+           @include breakpoint($mobile-bp) {
+            	width: 100%;
+            }
+        }
+
+        &.ms-grid-horiz-100{
+            width: 100%;
+        }
+
+        &.ms-grid-vert-50{
+            height: 300px;
+            overflow: hidden;
+
+            .slide-content{
+                display: table-cell;
+            }
+
+            @include breakpoint($mobile-bp) {
+                height: 250px;
+                overflow: hidden;
+            }
+        }
+
+        &.ms-grid-vert-100{
+            height: 600px;
+
+            .slide-content{
+                display: table-cell;
+            }
+
+            @include breakpoint($mobile-bp) {
+                height: 500px;
+                overflow: hidden;
+            }
+        }
+
+        .slide-content{
+            vertical-align: bottom;
+        }
+    }
+
+    // hover state
+    .mosaic-slide:hover{
+        cursor: pointer;
+
+        .initial{
+            .wrapper .text{
+                opacity: 1;
+                max-height: 200px;
+            }
+
+            .img-overlay{
+                opacity: 0.85; 
+                filter: alpha(opacity=85);
+            }
+
+        }
+
+        // Always On
+        &.trans-1 .wrapper{
+            // opacity: 1;
+            // max-height: 200px;
+        }
+        
+        // Nothing On Intial
+        &.trans-2 .wrapper .parsys > *{
+            opacity: 1;
+            max-height: 300px;
+        }
+
+        // Just Headline
+        &.trans-3 .wrapper .wrapper{
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        // .hover{
+        //     transition: opacity 0.5s ease, transform 0.5s ease;
+        //     opacity: 1;
+        //     transform: perspective(1000px) translate3d(0,0,0);
+        // }
+
+        .slide-content{
+            vertical-align: bottom;
+        }
+    }
+
+    .ms-view-more, 
+    .ms-view-less{
+
+    }
+}
+

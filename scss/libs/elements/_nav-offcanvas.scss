@@ -1,0 +1,158 @@
+$default-ocn-position: right;
+$default-ocn-accent-color: $secondary;
+$default-ocn-toggle-position: (top, 5em);
+$default-ocn-color: $inverse;
+$default-ocn-collapsable: true;
+$default-ocn-menu-width: 15em;
+$default-ocn-toggle-icon: $menu;
+$default-ocn-toggle-radius: 0;
+
+@mixin offcanvas-nav-base() {
+	position: fixed;
+	font-size: 1.3em;
+	overflow: visible;
+	top: 0;
+	transition: transform 0.35s ease-in-out;
+	height: 100vh;
+	z-index: 20;
+	text-align: left;
+	pointer-events: none;
+	transform: translate(0, 0);
+
+	&.expanded {
+		transform: translate(0, 0);
+	}
+	a:hover {
+		text-decoration: none;
+	}
+
+	.toggle {
+		display: inline-block;
+		padding: 1.25em;
+		text-transform: uppercase;
+		font-size: 0.7em;
+		width: auto;
+		pointer-events: auto;
+		&:after {
+			@include icon-defaults;
+			display: inline;
+			position: relative;
+			margin-left: 0.2em;
+		}
+	}
+	> ul {
+		height: 100vh;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		font-size: 1em;
+		display: inline-block;
+		pointer-events: auto;
+		li {
+
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+
+			a { 
+				padding: 0.5em 1em;
+				display: block; 
+			}
+		}
+	}
+
+	ul > li > ul > li a {
+		font-size: 0.8em;
+		padding: 0.5em 1em 0.5em 2em;
+	}
+
+}
+
+@mixin offcanvas-nav-style(
+	$ocn-position: $default-ocn-position,
+	$ocn-toggle-position: $default-ocn-toggle-position,
+	$ocn-accent-color: $ocn-accent-color,
+	$ocn-bg-color: $ocn-accent-color,
+	$ocn-color: $default-ocn-color,
+	$ocn-collapsable: $default-ocn-collapsable,
+	$ocn-menu-width: $default-ocn-menu-width,
+	$ocn-toggle-icon: $default-ocn-toggle-icon,
+	$ocn-toggle-radius: $default-ocn-toggle-radius
+	) {
+
+	color: $ocn-color;
+	
+	a { 
+		color: $ocn-color; 
+		&:hover {
+			background-color: lighten($ocn-bg-color, 10%);
+		}
+	}
+
+	.toggle {
+		background-color: $ocn-bg-color;
+		position: relative;
+		vertical-align: middle;
+		#{nth($ocn-toggle-position, 1)}: nth($ocn-toggle-position, 2);
+
+		&:after {
+			content: $ocn-toggle-icon;
+		}
+	}
+
+	ul {
+		width: $ocn-menu-width;
+		background-color: $ocn-bg-color;
+	}
+
+	@if($ocn-position == right) {
+		transform: translate($ocn-menu-width, 0);
+		right: 0;
+		.toggle, > ul { 
+			float: left; 
+		}
+		.toggle {
+			border-radius: $ocn-toggle-radius 0 0 $ocn-toggle-radius;
+			border-left: 5px solid lighten($ocn-bg-color, 10%);
+		}
+	}
+	@else {
+		transform: translate(-$ocn-menu-width, 0);
+		left: 0;
+		.toggle, > ul { 
+			float: right;
+		 }
+		.toggle {
+			border-radius: 0 $ocn-toggle-radius $ocn-toggle-radius 0; 
+			border-right: 5px solid lighten($ocn-bg-color, 10%);
+		}
+	}
+
+}
+
+@mixin offcanvas-nav(
+		$ocn-accent-color: $default-ocn-accent-color,
+		$ocn-bg-color: $ocn-accent-color,
+		$ocn-color: $default-ocn-color,
+		$ocn-collapsable: $default-ocn-collapsable,
+		$ocn-menu-width: $default-ocn-menu-width,
+		$ocn-position: $default-ocn-position,
+		$ocn-toggle-position: $default-ocn-toggle-position,
+		$ocn-toggle-icon: $default-ocn-toggle-icon
+	) {	
+
+	@include offcanvas-nav-base();
+	@include offcanvas-nav-style(
+		$ocn-accent-color: $ocn-accent-color,
+		$ocn-bg-color: $ocn-bg-color,
+		$ocn-color: $ocn-color,
+		$ocn-collapsable: $ocn-collapsable,
+		$ocn-menu-width: $ocn-menu-width,
+		$ocn-position: $ocn-position,
+		$ocn-toggle-position: $ocn-toggle-position,
+		$ocn-toggle-icon: $ocn-toggle-icon
+	);
+
+}
+

@@ -1,0 +1,173 @@
+// TOOL TIP BOX
+//---------------------------------------------
+
+$default-toolbox-breakpoint: $bp-3;
+$default-toolbox-color: $grey-80;
+$default-toolbox-toggle-color: $link-color;
+$default-toolbox-toggle-icon: "\e607";
+$default-toolbox-content-padding: 3em 2em 2em 2em;
+$default-toolbox-close-icon: $close;
+$default-toolbox-close-color: #fff;
+
+@mixin toolbox-base() {
+	.tip-toggle{
+		position: relative;
+		margin-right: 1em;
+		white-space: nowrap;
+		display: inline-block;
+
+		// adds icon to indicate toolbox link
+		&:before {
+			@include icon-defaults;
+			position: absolute;
+			top: -3px;
+			left: 100%;
+			padding: 0 10px 0 0;
+		}
+
+	}
+
+	// div container that slides out over content
+	#pageslide-wrapper {
+		box-sizing: border-box;
+	    display: none;
+	    position: absolute;
+	    position: fixed;
+	    top: 0;
+	    right: -100%;
+	    height: 100%;
+	    z-index: 999999;
+	  	width:60%;
+	  	overflow: auto;
+	
+	}
+
+	// container for dynamic content
+	.toolbox-content{
+		box-sizing: border-box;
+		width:100%;
+		height: 100%;
+
+		::selection{
+			color: #fff;
+			background: #04AEFC;
+			font-weight:500;
+		}
+
+		// close button within page slide
+		.close-tool{
+			text-transform: uppercase;
+			font-weight: 300;
+			margin-bottom: 2em;
+			display: block;
+
+
+			span {
+				display: inline-block;
+				width: 0%;
+				opacity: 0;
+				overflow: hidden;
+				transition: all .25s .25s ease-in-out;
+			}
+
+			&:hover{
+				text-decoration: none;
+
+				span{
+					width: 50px;
+					opacity: 1;
+					margin-right: .5em;
+				}
+			}
+
+			.close-icon {
+				@include icon-defaults;
+				transform: rotate(-90deg);
+				@include inline-block;
+				font-size: 1.25em;
+				position: relative;
+				top: 1px;
+				
+			}
+		}
+	}
+}
+
+@mixin toolbox-style (
+	$toolbox-breakpoint: $default-toolbox-breakpoint,
+	$toolbox-color: $default-toolbox-color,
+	$toolbox-toggle-color: $default-toolbox-toggle-color,
+	$toolbox-toggle-icon: $default-toolbox-toggle-icon,
+	$toolbox-content-padding: $default-toolbox-content-padding,
+	$toolbox-close-icon: $default-toolbox-close-icon,
+	$toolbox-close-color: $default-toolbox-close-color
+){
+
+	// Styles link on reference page differently then normal anchor links
+	.tip-toggle{
+		border-bottom: 1px dotted $toolbox-toggle-color;
+
+		// adds icon to indicate toolbox link
+		&:before {
+			color: $toolbox-toggle-color;
+			content: $toolbox-toggle-icon;	
+		}
+
+	}
+
+	// div container that slides out over content
+	#pageslide-wrapper {
+		background: $toolbox-color;
+
+		@include breakpoint($toolbox-breakpoint) {
+			width: 90%;
+		};
+	}
+
+	// container for dynamic content
+	.toolbox-content{
+		background: $toolbox-color;
+		padding: $toolbox-content-padding;
+
+		@include breakpoint($toolbox-breakpoint) {
+			padding: 2em;
+		};
+
+		// close button within page slide
+		.close-tool{
+			color: $toolbox-close-color;
+
+			@include breakpoint($toolbox-breakpoint) {
+				margin-bottom: 1em;
+			};
+
+			.close-icon:before {
+				content: $toolbox-close-icon;
+			}
+		}
+	}
+}
+
+@mixin toolbox(
+	$toolbox-breakpoint: $default-toolbox-breakpoint,
+	$toolbox-color: $default-toolbox-color,
+	$toolbox-toggle-color: $default-toolbox-toggle-color,
+	$toolbox-toggle-icon: $default-toolbox-toggle-icon,
+	$toolbox-content-padding: $default-toolbox-content-padding,
+	$toolbox-close-icon: $default-toolbox-close-icon,
+	$toolbox-close-color: $default-toolbox-close-color
+) {
+
+	@include toolbox-base();
+	@include toolbox-style(
+		$toolbox-breakpoint: $toolbox-breakpoint,
+		$toolbox-color: $toolbox-color,
+		$toolbox-toggle-color: $toolbox-toggle-color,
+		$toolbox-toggle-icon: $toolbox-toggle-icon,
+		$toolbox-content-padding: $toolbox-content-padding,
+		$toolbox-close-icon: $toolbox-close-icon,
+		$toolbox-close-color: $toolbox-close-color
+	);
+}
+
+

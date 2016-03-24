@@ -1,0 +1,120 @@
+//------------------------------------
+//Generator - http://gridpak.com/
+//------------------------------------
+
+/* Reusable column setup */
+
+
+
+@mixin col {
+    border:0px solid rgba(0,0,0,0);
+    float:left;
+    box-sizing:border-box;
+    background-clip:padding-box !important;
+    margin-left:$gutter-m;
+}
+
+@mixin span($num: 12, $gutter-m: 1%, $gutter-p: 0, $max_columns: 12) {
+    @if $num < 12 {
+        $one_col: (100% - ($gutter-m * ($max_columns - 1))) / $max_columns;
+        width: 100%;  
+        box-sizing: border-box;
+        background-clip:padding-box !important;
+
+        @include breakpoint($mobile-bp, min) {
+             width:($one_col * $num) + ($gutter-m * ($num - 1));
+             float: left;
+             margin-left:$gutter-m;
+             padding-left:$gutter-p;
+             clear: none;
+        }
+    } @else {
+        box-sizing: border-box;
+        @include span-first;
+        width:100%;
+    }
+}
+
+@mixin span-first {
+    @include breakpoint($mobile-bp, min) {
+         margin-left: 0;
+    }
+}
+
+ 
+@mixin offset($offset) {
+    $one_col: (100% - ($gutter-m * ($max_columns - 1))) / $max_columns;
+    margin-left: ($offset * $one_col) + (($offset * $gutter-m) + $gutter-m);
+}
+ 
+@mixin offset-1 {
+    @include offset(1);
+}
+@mixin offset-2 {
+    @include offset(2);
+}
+@mixin offset-3 {
+    @include offset(3);
+}
+@mixin offset-4 {
+    @include offset(4);
+}
+@mixin offset-5 {
+    @include offset(5);
+}
+@mixin offset-6 {
+    @include offset(6);
+}
+@mixin offset-7 {
+    @include offset(7);
+}
+@mixin offset-8 {
+    @include offset(8);
+}
+@mixin offset-9 {
+    @include offset(9);
+}
+@mixin offset-10 {
+    @include offset(10);
+}
+@mixin offset-11 {
+    @include offset(11);
+}
+
+.col {
+    float: left;
+    box-sizing: border-box;
+    background-clip:padding-box !important;
+    width: 100%;
+
+    &.one { @include span(1); }
+    &.two { @include span(2); }
+    &.three { @include span(3); }
+    &.four { @include span(4); }
+    &.five { @include span(5); }
+    &.six { @include span(6); }
+    &.seven { @include span(7); }
+    &.eight { @include span(8); }
+    &.nine { @include span(9); }
+    &.ten { @include span(10); }
+    &.eleven { @include span(11); }
+    &.twelve { @include span(12); }
+
+    &:first-child { @include span-first(); }
+
+    .gutterless & {
+        &.one { @include span(1, 0, 0); }
+        &.two { @include span(2, 0, 0); }
+        &.three { @include span(3, 0, 0); }
+        &.four { @include span(4, 0, 0); }
+        &.five { @include span(5, 0, 0); }
+        &.six { @include span(6, 0, 0); }
+        &.seven { @include span(7, 0, 0); }
+        &.eight { @include span(8, 0, 0); }
+        &.nine { @include span(9, 0, 0); }
+        &.ten { @include span(10, 0, 0); }
+        &.eleven { @include span(11, 0, 0); }
+        &.twelve { @include span(12, 0, 0); }
+    }
+
+}

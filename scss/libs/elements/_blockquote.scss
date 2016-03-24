@@ -1,0 +1,138 @@
+
+//
+// Blockquote Styles
+// --------------------------------------------------
+
+$default-blockquote-font-family    : $secondary-font-family;
+$default-blockquote-size           : $p-size;
+$default-blockquote-weight         : 300;
+$default-blockquote-margin         : 2em auto;
+$default-blockquote-padding        : 0;
+$default-blockquote-text-color     : $grey-80;
+$default-blockquote-line-height    : 1.5em;
+$default-blockquote-letter-spacing : auto;
+
+$default-blockquote-border     : 1px solid $grey-20;
+$default-blockquote-max-width  : 900px;
+$default-blockquote-quote-size : 2em;
+
+$default-blockquote-bp-1: 660px;
+
+@mixin blockquote-base() {
+    font-style: italic;
+    quotes: "\201C""\201D""\2018""\2019";
+
+    @include breakpoint($mobile-bp) {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    &:before, &:after {
+      display: block;
+      width: 5%;
+      text-align: center;
+      position: relative;
+      left: 45%;
+      background: white;
+    }
+
+    &:before {
+      top: -5px;
+      content: open-quote;
+    }
+
+    &:after {
+      content: close-quote;
+      top: 25px;
+      padding-right: 3px;
+  }
+ 
+}
+
+@mixin blockquote-style(
+  $blockquote-font-family    : $default-blockquote-font-family,
+  $blockquote-size           : $default-blockquote-size,
+  $blockquote-weight         : $default-blockquote-weight,
+  $blockquote-margin         : $default-blockquote-margin,
+  $blockquote-padding        : $default-blockquote-padding,
+  $blockquote-text-color     : $default-blockquote-text-color,
+  $blockquote-line-height    : $default-blockquote-line-height,
+  $blockquote-letter-spacing : $default-blockquote-letter-spacing,
+
+  $blockquote-border     : $default-blockquote-border,
+  $blockquote-max-width  : $default-blockquote-max-width,
+  $blockquote-quote-size : $blockquote-size * 1.33,
+
+  $blockquote-author-size        : $blockquote-size * 0.75,
+  $blockquote-author-font-family : $blockquote-font-family,
+  $blockquote-author-line-height : $blockquote-line-height * 0.33,
+
+  $blockquote-bp-1: $default-blockquote-bp-1
+
+  ) {
+      @include text-config($blockquote-font-family, $blockquote-size, $blockquote-weight, $blockquote-margin, $blockquote-padding, $blockquote-text-color, $blockquote-line-height, $blockquote-letter-spacing);
+      border-top: $blockquote-border;
+      border-bottom: $blockquote-border;
+      max-width: $blockquote-max-width;
+
+      p { font-family: $blockquote-font-family; }
+
+      &:before, &:after {
+        font-size: $blockquote-quote-size;
+
+        @include breakpoint($blockquote-bp-1) {
+          width: 10%;
+          left: 45%;
+        };
+      }
+    ul, ol, li { font-family: $blockquote-font-family; }
+    .author {
+      font-size: $blockquote-author-size;
+      font-family: $blockquote-author-font-family;
+    }
+}
+
+@mixin blockquote(
+  $blockquote-font-family    : $default-blockquote-font-family,
+  $blockquote-size           : $default-blockquote-size ,
+  $blockquote-weight         : $default-blockquote-weight,
+  $blockquote-margin         : $default-blockquote-margin ,
+  $blockquote-padding        : $default-blockquote-padding  ,
+  $blockquote-text-color     : $default-blockquote-text-color ,
+  $blockquote-line-height    : $default-blockquote-line-height ,
+  $blockquote-letter-spacing : $default-blockquote-letter-spacing,
+
+  $blockquote-border     : $default-blockquote-border,
+  $blockquote-max-width  : $default-blockquote-max-width,
+  $blockquote-quote-size : $blockquote-size * 1.33,
+
+  $blockquote-author-size        : $blockquote-size * .75,
+  $blockquote-author-font-family : $blockquote-font-family,
+  $blockquote-author-line-height : $blockquote-line-height * 0.33,
+
+  $blockquote-bp-1: $default-blockquote-bp-1
+) {
+
+  @include blockquote-base();
+  @include blockquote-style(
+    $blockquote-font-family    : $blockquote-font-family,
+    $blockquote-size           : $blockquote-size ,
+    $blockquote-weight         : $blockquote-weight,
+    $blockquote-margin         : $blockquote-margin ,
+    $blockquote-padding        : $blockquote-padding  ,
+    $blockquote-text-color     : $blockquote-text-color ,
+    $blockquote-line-height    : $blockquote-line-height ,
+    $blockquote-letter-spacing : $blockquote-letter-spacing,
+
+    $blockquote-border     : $blockquote-border,
+    $blockquote-max-width  : $blockquote-max-width,
+    $blockquote-quote-size : $blockquote-quote-size,
+
+    $blockquote-author-size        : $blockquote-author-size,
+    $blockquote-author-font-family : $blockquote-author-font-family,
+    $blockquote-author-line-height : $blockquote-author-line-height,
+
+    $blockquote-bp-1: $blockquote-bp-1
+  );
+
+}

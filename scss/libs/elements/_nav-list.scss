@@ -1,0 +1,226 @@
+$default-ln-link-color: null;
+$default-ln-bg-color: null;
+
+$default-ln-border-color: null;
+$default-ln-border-width: 1px;
+$default-ln-border-style: solid;
+
+$default-ln-link-icon: $caret-right;
+$default-ln-link-icon-show-on: hover; //hover or always
+$default-ln-link-icon-position: right; //right or left
+$default-ln-link-icon-animate: true;
+
+$default-ln-fixed: null;
+$default-ln-position: (bottom: 0, left: 0);
+$default-ln-max-width: null;
+
+$default-ln-trim-text: true;
+
+
+@mixin listnav-base() {
+  display: inline-block;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    width: auto;
+    > a {
+      padding: 0.5em 0;
+      display: block;
+      position: relative;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+@mixin listnav-style(
+    $ln-link-color: $default-ln-link-color,
+    $ln-bg-color: $default-ln-bg-color,
+    $ln-trim-text: $default-ln-trim-text,
+
+    $ln-border-color: $default-ln-border-color,
+    $ln-border-width: $default-ln-border-width,
+    $ln-border-style: $default-ln-border-style,
+    $ln-border: $ln-border-width $ln-border-style $ln-border-color,
+
+    $ln-link-icon: $default-ln-link-icon,
+    $ln-link-icon-show-on: $default-ln-link-icon-show-on,
+    $ln-link-icon-animate: $default-ln-link-icon-animate,
+    $ln-link-icon-position: $default-ln-link-icon-position,
+
+    $ln-position: $default-ln-position,
+    $ln-fixed: $default-ln-fixed,
+    $ln-fixed: $default-ln-fixed,
+    $ln-max-width: $default-ln-max-width
+  ) {
+
+  @if $ln-fixed {
+    position: fixed;
+    z-index: 20;
+    //padding: 1.5em;
+    @each $position, $value in $ln-position {
+      #{$position}: $value;
+    }
+  }
+
+  @if $ln-fixed and $ln-bg-color == null {
+    background-color: $secondary;
+  } @else {
+    background-color: $ln-bg-color;
+  }
+  
+  @if $ln-max-width {
+    // ul {
+      max-width: $ln-max-width;
+    // }
+  }
+
+  li {
+    @if $ln-border-color == null {
+      @if $ln-bg-color == null {
+        @if $ln-fixed {
+          border-bottom: $ln-border-width $ln-border-style rgba(255,255,255,0.2);
+          &:first-child {
+            border-top: $ln-border-width $ln-border-style rgba(255,255,255,0.2);
+          }
+        } @else {
+          border-bottom: $ln-border-width $ln-border-style rgba(0,0,0,0.3);
+          &:first-child {
+            border-top: $ln-border-width $ln-border-style rgba(0,0,0,0.3);
+          }
+        }
+      } @else {
+        border-bottom: $ln-border-width $ln-border-style color-contrast($ln-bg-color, $grey-10, $inverse);
+        &:first-child {
+          border-top: $ln-border-width $ln-border-style color-contrast($ln-bg-color, $grey-10, $inverse);
+        }
+      }
+    } @else {
+      border-bottom: $ln-border;
+      &:first-child {
+        border-top: $ln-border;
+      }
+    }
+   
+    @if $ln-max-width {
+      width: 100%;
+    }
+   
+    a {
+      @if $ln-link-color == null {
+       @if $ln-bg-color {
+        color: color-contrast($ln-bg-color, $inverse, $link-color);
+       } @elseif $ln-fixed {
+        color: $inverse;
+       }
+      } @else {
+         color: $ln-link-color;
+      }
+
+      @if $ln-fixed or $ln-bg-color {
+        padding: 0.5em 1em;
+      }
+
+      @if $ln-trim-text and $ln-max-width {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      @if $ln-link-icon {
+        @if $ln-fixed or $ln-bg-color {
+          padding-right: 2.2em;
+        } @else {
+          padding-right: 1.2em;
+        }
+        &:after {
+          @include icon-defaults();
+          content: $ln-link-icon;
+          display: inline;
+          vertical-align: middle;
+          margin-left: 0.2em;
+
+          @if $ln-link-icon-position == right {
+            position: absolute;
+            right: 0;
+            margin-top: 0.1em;
+          }
+
+           @if $ln-link-icon-show-on == hover {
+            visibility: hidden;
+            opacity: 0;
+            transition: transform 0.35s ease-in-out, opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
+            @if $ln-link-icon-animate {
+              @if $ln-fixed or $ln-bg-color {
+                transform: translateX(-1.5em);
+              } @else {
+                transform: translateX(-1em);
+              }
+            }
+           }
+        }
+        @if $ln-link-icon-show-on == hover {
+          &:hover:after {
+            visibility: visible;
+            opacity: 1;
+            @if $ln-link-icon-animate {
+               @if $ln-fixed or $ln-bg-color {
+                 transform: translateX(-0.5em);
+               } @else {
+                 transform: translateX(0);
+               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin listnav(
+    $ln-link-color: $default-ln-link-color,
+    $ln-bg-color: $default-ln-bg-color,
+    $ln-trim-text: $default-ln-trim-text,
+
+    $ln-border-color: $default-ln-border-color,
+    $ln-border-width: $default-ln-border-width,
+    $ln-border-style: $default-ln-border-style,
+    $ln-border: $ln-border-width $ln-border-style $ln-border-color,
+
+    $ln-link-icon: $default-ln-link-icon,
+    $ln-link-icon-show-on: $default-ln-link-icon-show-on,
+    $ln-link-icon-animate: $default-ln-link-icon-animate,
+    $ln-link-icon-position: $default-ln-link-icon-position,
+
+    $ln-position: $default-ln-position,
+    $ln-fixed: $default-ln-fixed,
+    $ln-max-width: $default-ln-max-width
+  ) {
+  @include listnav-base;
+  @include listnav-style(
+    $ln-link-color: $ln-link-color,
+    $ln-bg-color: $ln-bg-color,
+    $ln-trim-text: $ln-trim-text,
+
+    $ln-border-color: $ln-border-color,
+    $ln-border-width: $ln-border-width,
+    $ln-border-style: $ln-border-style,
+    $ln-border: $ln-border-width $ln-border-style $ln-border-color,
+
+    $ln-link-icon: $ln-link-icon,
+    $ln-link-icon-show-on: $ln-link-icon-show-on,
+    $ln-link-icon-position: $ln-link-icon-position,
+    $ln-link-icon-animate: $ln-link-icon-animate,
+
+    $ln-position: $ln-position,
+    $ln-fixed: $ln-fixed,
+    $ln-max-width: $ln-max-width
+  );
+}

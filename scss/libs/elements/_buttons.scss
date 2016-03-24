@@ -1,0 +1,390 @@
+//
+// Button Mixins
+// --------------------------------------------------
+
+$default-btn-style: solid; // solid or hollow
+$default-btn-color       : $primary;
+
+$default-btn-text-size        : $base-font-size;
+$default-btn-text-weight      : normal;
+$default-btn-line-height      : 1.2em;
+$default-btn-text-color       : #fff;
+$default-btn-text-color-active: #fff;
+
+$default-btn-padding: 0.75em 1.3em 0.775em;
+$default-btn-radius : $radius;
+
+$default-btn-border-width: 1px;
+$default-btn-border-style: solid;
+
+$default-btn-icon      : false;
+$default-btn-icon-show : true;
+$default-btn-text-show : true;
+
+// Solid Button
+// -------------------------------------------------
+
+
+@mixin btn-style (
+
+  $btn-style: $default-btn-style, // solid or hollow
+
+  $btn-color        : $default-btn-color,
+  $btn-color-hover  : lighten($btn-color, 20%),
+  $btn-color-active : darken($btn-color, 21%),  
+
+  $btn-text-size         : $default-btn-text-size,
+  $btn-text-weight       : $default-btn-text-weight,
+  $btn-line-height       : $default-btn-line-height,
+  $btn-text-color        : $default-btn-text-color ,
+  $btn-text-color-hover  : color-contrast($btn-color, $base, $inverse),
+  $btn-text-color-active : $default-btn-text-color-active,
+
+  $btn-padding: $default-btn-padding,
+  $btn-radius : $default-btn-radius,
+  
+  $btn-border-color       : $btn-color,
+  $btn-border-color-hover : $btn-color-hover,
+  $btn-border-width       : $default-btn-border-width,
+  $btn-border-style       : $default-btn-border-style,
+
+  $btn-icon             : $default-btn-icon, // false or character code
+  $btn-icon-color       : $btn-text-color,
+  $btn-icon-hover-color : $btn-text-color-hover,
+  $btn-icon-show        : $default-btn-icon-show, //true or hover
+  $btn-text-show        : $default-btn-text-show //true or false
+  
+)
+
+{
+  border-radius: $btn-radius;
+  box-shadow: none;
+  transition: 0.25s;
+  @include inline-block;
+  box-sizing: border-box;
+  font-size: $btn-text-size;
+  font-weight: $btn-text-weight;
+  padding: $btn-padding;
+  line-height: $btn-line-height;
+  text-decoration: none;
+  text-shadow: none;
+  text-align: center;
+  margin: 0;
+  vertical-align: middle;
+  cursor: pointer;
+  text-decoration: none;
+
+  // Alternate states
+  // --------------------------------------------------
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    outline: none;
+    transition: 0.25s;
+  }
+
+  // Active State
+  &:active,
+  &.active {
+    box-shadow: none;
+  }
+
+  // Disabled state
+  &.disabled,
+  &[disabled] {
+    box-shadow: none;
+    opacity: 0.7;
+    cursor: default;
+  }
+
+  //Solid Button
+  @if $btn-style == solid {
+
+    background: $btn-color;
+    color: $btn-text-color;
+    border: $btn-border-width $btn-border-style $btn-border-color;
+
+    &:hover,
+    &:focus {
+      background-color: $btn-color-hover;
+      border-color: $btn-border-color-hover;
+      color: $btn-text-color-hover;
+    }
+
+    // Active State
+    &:active,
+    &.active {
+      background-color: $btn-color-active;
+      color: $btn-text-color-active;
+      border-color: $btn-color-active;
+    }
+
+    // Disabled state
+    &.disabled,
+    &[disabled] {
+      background-color: lighten($btn-color, 10%);
+      color: mix($btn-text-color, black, 50%);
+    }
+
+  }
+
+  @if $btn-style == hollow {
+    border: $btn-border-width $btn-border-style $btn-border-color;
+    background: transparent;
+    color: $btn-text-color;
+ 
+    // Alternate states
+    // --------------------------------------------------
+    &:hover,
+    &:focus {
+      background-color: $btn-color;
+      border-color: $btn-color;
+      color: $btn-text-color-hover;
+    }
+
+    // Active State
+    &:active,
+    &.active {
+      background-color: $btn-color-active;
+      color: $btn-text-color-active;
+      border-color: $btn-color-active;
+    }
+
+    // Disabled state
+    &.disabled,
+    &[disabled] {
+      background-color: transparent;
+      color: mix($btn-text-color, black, 50%);
+    }
+  }
+
+  @if $btn-icon != false {
+
+    &:after {
+      @include icon-defaults;
+      content: $btn-icon;
+      margin-left: .3em;
+      pointer-events: none;
+      text-indent: 0;
+      vertical-align: middle;
+    }
+
+    @if $btn-text-show == false {
+      width: $btn-text-size;
+      text-indent: -999px;
+      border-radius: $btn-text-size * 2;
+      @include inline-block;
+      position: relative;
+      overflow: hidden;
+      &:after {
+        position: absolute;
+        left: $btn-text-size * 0.5;
+      }
+    }
+
+    @if $btn-icon-show == hover {
+      &:after {
+            transition: all .25s ease-in-out;
+            opacity: 0;
+            left: -0.75em;
+            position: relative;
+            width: 0;
+            @include inline-block;
+          }
+
+      &:hover {
+        padding-right: 2em;
+
+        &:after {
+          left: 0;
+          opacity: 1;
+        }
+      }
+    }
+
+
+  }
+
+}
+
+// Add Loading icon animation to a button
+// -------------------------------------------------
+
+@mixin spinner-button( $color: $inverse) {
+  @include spinner(
+      $size: 1em,
+      $color: $color
+    );
+  &:after {
+    margin-left: 0.5em;
+  }
+  &:hover { 
+    padding-right: 0.5em;
+    &:after { padding-left: 0; } 
+  }
+}
+
+@mixin btn(
+ $btn-style: $default-btn-style, // solid or hollow
+
+ $btn-color        : $default-btn-color,
+ $btn-color-hover  : lighten($btn-color, 20%),
+ $btn-color-active : darken($btn-color, 20%),  
+
+ $btn-text-size         : $default-btn-text-size,
+ $btn-text-weight       : $default-btn-text-weight,
+ $btn-line-height       : $default-btn-line-height,
+ $btn-text-color        : $default-btn-text-color ,
+ $btn-text-color-hover  : color-contrast($btn-color, $base, $inverse),
+ $btn-text-color-active : $default-btn-text-color-active,
+
+ $btn-padding: $default-btn-padding,
+ $btn-radius : $default-btn-radius,
+ 
+ $btn-border-color       : $btn-color,
+ $btn-border-color-hover : $btn-color-hover,
+ $btn-border-width       : $default-btn-border-width,
+ $btn-border-style       : $default-btn-border-style,
+
+ $btn-icon             : $default-btn-icon, // false or character code
+ $btn-icon-color       : $btn-text-color,
+ $btn-icon-hover-color : $btn-text-color-hover,
+ $btn-icon-show        : $default-btn-icon-show, //true or hover
+ $btn-text-show        : $default-btn-text-show //true or false
+
+) {
+
+  @include btn-style(
+    $btn-style: $btn-style, // solid or hollow
+
+    $btn-color        : $btn-color,
+    $btn-color-hover  : $btn-color-hover,
+    $btn-color-active : $btn-color-active,  
+
+    $btn-text-size         : $btn-text-size,
+    $btn-text-weight       : $btn-text-weight,
+    $btn-line-height       : $btn-line-height,
+    $btn-text-color        : $btn-text-color ,
+    $btn-text-color-hover  : $btn-text-color-hover,
+    $btn-text-color-active : $btn-text-color-active,
+
+    $btn-padding: $btn-padding,
+    $btn-radius : $btn-radius,
+    
+    $btn-border-color       : $btn-border-color,
+    $btn-border-color-hover : $btn-border-color-hover,
+    $btn-border-width       : $btn-border-width,
+    $btn-border-style       : $btn-border-style,
+
+    $btn-icon             : $btn-icon, // false or character code
+    $btn-icon-color       : $btn-icon-color,
+    $btn-icon-hover-color : $btn-icon-hover-color,
+    $btn-icon-show        : $btn-icon-show, //true or hover
+    $btn-text-show        : $btn-text-show //true or false
+  );
+
+}
+
+@mixin btn-solid(
+
+ $btn-color        : $default-btn-color,
+ $btn-color-hover  : lighten($btn-color, 20%),
+ $btn-color-active : darken($btn-color, 20%),  
+
+ $btn-text-size         : $default-btn-text-size,
+ $btn-text-weight       : $default-btn-text-weight,
+ $btn-line-height       : $default-btn-line-height,
+ $btn-text-color        : $default-btn-text-color ,
+ $btn-text-color-hover  : color-contrast($btn-color, $base, $inverse),
+ $btn-text-color-active : $default-btn-text-color-active,
+
+ $btn-padding: $default-btn-padding,
+ $btn-radius : $default-btn-radius,
+ 
+ $btn-border-color       : $btn-color,
+ $btn-border-color-hover : $btn-color-hover,
+ $btn-border-width       : $default-btn-border-width,
+ $btn-border-style       : $default-btn-border-style,
+
+ $btn-icon             : $default-btn-icon, // false or character code
+ $btn-icon-color       : $btn-text-color,
+ $btn-icon-hover-color : $btn-text-color-hover,
+ $btn-icon-show        : $default-btn-icon-show, //true or hover
+ $btn-text-show        : $default-btn-text-show //true or false
+) {
+
+  @include btn-style(
+    $btn-style: solid, // solid or hollow
+
+    $btn-color        : $btn-color,
+    $btn-color-hover  : $btn-color-hover,
+    $btn-color-active : $btn-color-active,  
+
+    $btn-text-size         : $btn-text-size,
+    $btn-text-weight       : $btn-text-weight,
+    $btn-line-height       : $btn-line-height,
+    $btn-text-color        : $btn-text-color ,
+    $btn-text-color-hover  : $btn-text-color-hover,
+    $btn-text-color-active : $btn-text-color-active,
+
+    $btn-padding: $btn-padding,
+    $btn-radius : $btn-radius,
+    
+    $btn-border-color       : $btn-border-color,
+    $btn-border-color-hover : $btn-border-color-hover,
+    $btn-border-width       : $btn-border-width,
+    $btn-border-style       : $btn-border-style,
+
+    $btn-icon             : $btn-icon, // false or character code
+    $btn-icon-color       : $btn-icon-color,
+    $btn-icon-hover-color : $btn-icon-hover-color,
+    $btn-icon-show        : $btn-icon-show, //true or hover
+    $btn-text-show        : $btn-text-show //true or false
+  );
+
+}
+
+@mixin btn-hollow(
+  $btn-color        : $default-btn-color,
+  $btn-color-active : darken($btn-color, 20%),  
+
+  $btn-text-size         : $default-btn-text-size,
+  $btn-text-weight       : $default-btn-text-weight,
+  $btn-line-height       : $default-btn-line-height,
+
+  $btn-padding: $default-btn-padding,
+  $btn-radius : $default-btn-radius,
+  
+  $btn-icon             : $default-btn-icon, // false or character code
+  $btn-icon-show        : $default-btn-icon-show, //always or hover
+  $btn-text-show        : $default-btn-text-show //true or false
+) {
+
+  @include btn-style(
+    $btn-style: hollow, // solid or hollow
+
+    $btn-color        : $btn-color,
+    $btn-color-active : $btn-color-active, 
+
+    $btn-text-size         : $btn-text-size,
+    $btn-text-weight       : $btn-text-weight,
+    $btn-line-height       : $btn-line-height,
+    $btn-text-color        : $btn-color ,
+
+    $btn-padding: $btn-padding,
+    $btn-radius : $btn-radius,
+    
+    $btn-border-width       : 1px,
+    $btn-border-style       : solid,
+
+    $btn-icon             : $btn-icon, // false or character code
+    $btn-icon-color       : $btn-color,
+    $btn-icon-show        : $btn-icon-show, //true or hover
+    $btn-text-show        : $btn-text-show //true or false
+  );
+
+}
+
+
+
+

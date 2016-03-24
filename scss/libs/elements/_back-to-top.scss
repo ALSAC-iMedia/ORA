@@ -1,0 +1,57 @@
+//
+// Back To Top
+// --------------------------------------------------
+@mixin back-to-top (  
+  $back-to-top-icon: $arrow-up,
+  $back-to-top-radius: 0,
+  $back-to-top-width: 40px,
+  $back-to-top-height: 40px,
+  $back-to-top-position-bottom: 2%,
+  $back-to-top-position-right: 1%,
+  $back-to-top-background-color: #fff,
+  $back-to-top-icon-color: #666,
+  $back-to-top-icon-color-hover: #666,
+  $back-to-top-icon-size: 1.5em,
+  $back-to-top-padding: .575em 0 0 0
+  ) 
+{
+  position: fixed;
+  bottom: $back-to-top-position-bottom;
+  right: $back-to-top-position-right;
+
+    a {
+      width: $back-to-top-width;
+      display: block;
+      text-decoration: none;
+      cursor: pointer;
+
+        &:hover span {
+          opacity: 1; 
+          color: $back-to-top-icon-color-hover;
+        }
+    }
+
+    span {
+      box-sizing: border-box;
+      border-radius: $back-to-top-radius;
+      transition: .5s;
+      width: $back-to-top-width;
+      height: $back-to-top-height;
+      display: block;
+      background-color: $back-to-top-background-color;
+      color: $back-to-top-icon-color;
+      text-align: center;
+      opacity: 0.3;
+      padding: $back-to-top-padding; 
+
+        i {
+          @include icon-defaults;
+          font-size: $back-to-top-icon-size;
+          
+          &:before { content: $back-to-top-icon; }
+        } 
+      
+    }
+
+}
+

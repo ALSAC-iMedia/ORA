@@ -1,0 +1,221 @@
+$default-accordion-bp				: $bp-5;
+$default-accordion-accent-color		: $secondary;
+$default-accordion-heading-size		: 1em;
+$default-accordion-accent-border	: bottom;
+$default-accordion-layout			: minimal;
+$default-accordion-border-radius	: 0;
+$default-accordion-icon 			: $caret-down;
+$default-accordion-bp				: $bp-5;
+
+@mixin accordion-base() {
+	margin: 1em auto;
+	max-width: $element-max-width;
+
+
+	.at-content {
+		margin: 0;
+		padding: 0;
+
+		@include breakpoint($mobile-bp) {
+			padding-left: $mobile-padding;
+			padding-right: $mobile-padding;
+		}
+
+		li.nav-item, li.item { list-style: none; }
+
+		h1, h2, h3, h4, h5, h6 {
+		  &:first-child { margin-left: 0; }
+		}
+		.nav-item {
+			margin: 0;
+			padding: 0;
+
+			a {
+				display: block;
+				width: 100%;
+				white-space: nowrap;
+				position: relative;
+				text-overflow: ellipsis;
+				box-sizing: border-box;
+				font-size: inherit;
+				transition: color 0.3s ease-out, background-color 0.3s ease-out;
+
+				&:hover { text-decoration: none; }
+
+				.title {
+					height: 1em;
+					box-sizing: content-box;
+					display: block;
+				}
+
+				.cta-text {
+					position: absolute;
+					top: 0;
+					display: block;
+					right: 0;
+					line-height: 1em;
+					font-size: inherit;
+					text-transform: uppercase;
+					padding: 1em 0.5em;
+					vertical-align: middle;
+					height: 1em;
+					box-sizing: content-box;
+
+					&:after {
+						display: inline-block;
+						width: 1em;
+						height: 1em;
+						font-family: $icon-font-family;
+						font-size: 1em;
+						line-height: 1.1em;
+						font-size: 0.6em;
+						transform-origin: center center;
+						display: inline;
+					}
+
+					small {
+						font-size: 0.6em;
+						display: inline;
+					}
+
+				}
+			}
+		}
+	}
+	.at-nav { 
+		display: none; 
+	}
+	.at-content .item { 
+		display: none;
+		overflow: hidden; 
+
+		&.expanded { 
+			display: block; 
+		}
+	}
+}
+
+@mixin accordion-style(
+	$accordion-accent-color 	: $default-accordion-accent-color,
+	$accordion-heading-bg-color : null,
+	$accordion-heading-color 	: color-contrast($accordion-heading-bg-color, $accordion-accent-color, $inverse),
+	$accordion-heading-size 	: $default-accordion-heading-size,
+	$accordion-accent-border 	: $default-accordion-accent-border,
+	$accordion-layout 			: $default-accordion-layout,
+	$accordion-border-radius 	: $default-accordion-border-radius,
+	$accordion-icon				: $default-accordion-icon,
+	$accordion-icon-close 		: null,
+	$accordion-icon-open 		: null,
+	$accordion-bp 				: $default-accordion-bp
+	) {
+
+	@include breakpoint($accordion-bp) { padding: 0 15px; }
+
+	.at-content {
+		.nav-item {
+		  font-size: $accordion-heading-size;
+
+		  a {
+		  	@if $accordion-heading-bg-color {
+		  		color: $accordion-heading-color;
+		  	} @else {
+				color: $accordion-accent-color;
+		  	}
+			border-bottom: 1px solid rgba(0,0,0,0.3);
+			background-color: $accordion-heading-bg-color;
+			
+			.title { 
+
+				@if $accordion-heading-bg-color == null {
+					padding: 1em 0;
+					border-#{$accordion-accent-border}: 2px solid transparent;
+				} @else {
+					padding: 1em; 
+					border-#{$accordion-accent-border}: 2px solid $accordion-heading-bg-color;
+				}
+			}
+
+			.cta-text {
+				color: $accordion-heading-color;
+				border-#{$accordion-accent-border}: 2px solid $accordion-accent-color;
+				&:after {
+				  @if $accordion-icon-open {
+				  	 content: $accordion-icon-open;
+			  	  } @else {
+			  	 	 content: $accordion-icon;
+			  	 	 transition: transform 0.35s ease-in-out;
+			  	  }
+				}
+
+				&:hover {
+					@if $accordion-heading-bg-color {
+						background-color: color-contrast($accordion-heading-bg-color, rgba(0,0,0,0.8), $inverse);
+						&, &:after {
+							color: $accordion-heading-bg-color;
+						}
+					} @else {
+						background-color: $accordion-accent-color;
+						&, &:after {
+							color: color-contrast($accordion-accent-color, rgba(0,0,0,0.8), $inverse);
+						}
+					}
+				}
+			}
+          }
+
+          &.expanded a .cta-text:after { 
+
+          	@if $accordion-icon-close {
+          		content: $accordion-icon-close; 
+          	} @else {
+          		transform: rotate(-180deg);
+          	}
+          	
+          }
+		}
+
+		@include breakpoint($accordion-bp) {
+			.nav-item a {
+				.cta-text:hover {
+					background-color: transparent;
+					color: $accordion-accent-color;
+
+					&:after { color: $accordion-accent-color; }
+				}
+				
+			}	
+		}
+	}
+}
+
+@mixin accordion(
+		$accordion-accent-color 	: $default-accordion-accent-color,
+		$accordion-heading-bg-color : null,
+		$accordion-heading-color 	: color-contrast($accordion-heading-bg-color),
+		$accordion-heading-size 	: $default-accordion-heading-size,
+		$accordion-accent-border 	: $default-accordion-accent-border,
+		$accordion-layout 			: $default-accordion-layout,
+		$accordion-border-radius 	: $default-accordion-border-radius,
+		$accordion-icon				: $default-accordion-icon,
+		$accordion-icon-close 		: null,
+		$accordion-icon-open 		: null,
+		$accordion-bp 				: $default-accordion-bp
+	) {
+
+	@include accordion-base();
+
+	@include accordion-style(
+		$accordion-accent-color 	: $accordion-accent-color,
+		$accordion-heading-bg-color : $accordion-heading-bg-color,
+		$accordion-heading-color 	: $accordion-heading-color,
+		$accordion-heading-size 	: $accordion-heading-size,
+		$accordion-accent-border 	: $accordion-accent-border,
+		$accordion-layout 			: $accordion-layout,
+		$accordion-border-radius 	: $accordion-border-radius,
+		$accordion-icon 			: $accordion-icon,
+		$accordion-icon-open 		: $accordion-icon-open,
+		$accordion-icon-close 		: $accordion-icon-close,
+		$accordion-bp 				: $default-accordion-bp
+	);
+
+	}

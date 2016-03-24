@@ -1,0 +1,299 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='css/ora.css' />
+
+    </head>
+    <body>
+    	<main class="landing home">
+            <header id="header">
+                <div class="logo logo-horizontal">
+                        <a href="/sjVirtualEngagement/">
+                        <i class="icon-sj-logo-child"></i>
+                        <i class="icon-sj-logo-type"></i>
+                        <span>St. Jude Children's Research Hospital Logo</span>
+                    </a>
+                </div>
+            </header>
+            <section class="ticket-form">
+                <h1>2016 St. Jude Evening of Hope - Charlotte</h1>
+                <p>03/12/2016</p>         
+                <div class="gutterless">
+            </section>
+            <form id="event-registration">
+                <div class="cd-projects-container">
+                    <ul class="ticket-list">
+                        <li class="col twocol" id="ticket-card">
+                            <div class="bgwrapper">
+                            <a href="#0">
+                                <div class="cd-project-title">
+                                    <h2>$125</h2>
+                                    <p>covers the cost of parking, admission and dinner</p>
+                                    <p>Bottomless whine glasses will be for sale at the door</p>
+                                    <p>Guest Speaker will be Beth Murphy</p> 
+                                </div>
+                            </a>
+                            </div>
+                            <div class="card-header"> 
+                                        <h4>Tickets</h4>
+                                    </div>
+                        </li>
+            <li class="col twocol" id="sponsor-card">
+                <div class="bgwrapper">
+                <a href="#0">
+                    <div class="cd-project-title">
+                        
+                            <h2>$1000 -$25000</h2>
+                    
+                            <p>covers the cost of parking, admission and dinner for 10</p>
+                            <p>Bottle service included</p>
+                            <p>20 extra raffle tickets for door prizes</p>
+                            <p>Special visit from Beth Murphy</p>
+                        
+                    </div>
+                </a>
+            </div>
+                <div class="card-header"> 
+                                <h4>Sponsorships</h4>
+                            </div>
+            </li>
+        </ul> 
+       
+        <ul class="slide-box" id="ticket-order-number">
+            <li class="individial-tickets">
+                <div class="preview-image">
+                    <p>You selected Individual Tickets - <a href="#0">change my order</a></p>
+                        
+                    <fieldset class="form-step status-current ng-scope" id="ticket-select">
+        
+    <div class="input-group field number populated ticket-stepper">
+        <label for="tickets"><strong>How many tickets would you like?</strong></label>
+        <input type="number" value="1" ui-autofocus="" autofocus="" name="tickets" id="ticket-qty" class="">
+    </div>
+    <div>
+        <label class="error hide" id="lessthanone" for="tickets">Please enter at least 1 ticket</label>
+        <label class="error hide" id="morethanten" for="tickets">You've entered 10 or more tickets, would you like to get a sponsorship table instead? <a href="">Yes, I'd like to get a sponsorship instead </a> </label> 
+    </div>
+
+    <div ng-show="reserveTickets.tickets.$valid" class="input-group output-group total-price">
+        <label for="total-cost">Total</label>
+        <output id="total-price" for="ticket-qty" name="total-cost" class="ng-binding">
+            <span>$</span><span id="total-price-val">125</span><span>.00</span>
+        </output>
+    </div>
+    <button class="btn-primary pull-right" id="log-in-button" type="button" href="#">Get Your Tickets</button>
+</fieldset>
+                </div> <!-- .cd-project-info -->
+            </li>
+
+            <li class="sponsor-tickets">
+                <div class="preview-image">
+                    <p>You selected Sponsorship - <a href="#0">change my order</a></p>
+                    <div class="cd-project-title">
+                        <h3>Sponsorships</h2>
+                    </div> 
+                    <div class="radio">
+                                <div class="amountsWrapper">
+                                    <select class="required" name="expMonth" id="expMonth" tabindex="14">
+                                        <option value="01"> $50,000 </option>
+                                        <option value="01"> $25,000 </option>
+                                        <option value="01"> $15,000 </option>
+                                        <option value="01"> $10,000 </option>
+                                        <option value="01"> $5,000 </option>
+                                        <option value="01"> $2.500 </option>
+                                        <option value="01"> $1,000 </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </diV>
+                </div> <!-- .cd-project-info -->
+            </li>
+        </ul> <!-- .cd-projects -->
+    </form>
+    </div> <!-- .cd-project-container -->
+    <div id="new-return-user" class="hidden">
+        <div class="new-returning-user-view">
+            <p>You selected <span id="total-ticket-num"> </span> tickets - <a href="#0">change my order</a></p>
+            <ul class="returning-user-view">
+                <li>
+                    <form id="event-registration-login">
+                        <p class="returning_user">Haven't participated in a St. Jude event before? 
+                            <a href="#">Create your account</a>.
+                        </p>
+                        <div id="user_type_section_header" class="section-header">
+                        </div>
+                        <div id="user_type_section_body" class="section-body clearfix">
+                            <div id="user_type_new_participant_registration_container">
+                                <div id="user_type_login_container">
+                                     <div data-container="edit_fr_returning_user_container" class="manageable-content">
+                                        <strong id="fr_returning_user_container">Log in with your username and password:</strong>
+                                    </div>
+                                    <br />
+                                    <div id="user_type_login_login_container">
+                                        <div class="form-content">
+                                            <div id="user_type_user_name_input_container" class="input-container">
+                                                <span class="field-required"></span>
+                                                <label for="USERNAME_1">Username</label>
+                                                <input type="text" maxlength="60" value="" id="USERNAME_1" name="USERNAME" autocapitalize="none" autocorrect="off">
+                                            </div>
+                                            <div id="user_type_password_input_container" class="input-container">
+                                                <span class="field-required"></span>
+                                                <label for="Password">Password</label>
+                                                <input type="password" maxlength="20" id="Password" name="Password">
+                                            </div>
+                                            <br />
+                                                <button class="btn-primary pull-right" id="user_type_login_button" type="button" href="#">Log In</button>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </form>
+                    <form id="event-registration-login-lost" class="hidden">
+                        <div id="user_type_email_login_info_link_container">
+                            <a id="user_type_email_login_info_link" href="javascript:void(0)">Email me my login information</a>
+                        </div>
+                        <div class="hidden" id="user_type_login_email_container">   
+                            <div class="form-content">
+                                <div id="user_type_login_email_input_container" class="input-container">
+                                    <span class="field-required"></span>
+                                    <label for="email_2">Email</label>
+                                    <input type="text" maxlength="100" id="email_2" name="email">
+                                </div>
+                                <input type="hidden" value="Send username" name="user_name">
+                                    <button type="submit" value="Send username" name="user_name" id="user_type_login_email_button" class="step-button action-button">
+                                        <span>Send username</span>
+                                    </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul> 
+        </div> 
+    </div>  
+
+
+
+    <div id="payment-container-wrapper" class="hidden">
+        <div class="ne">
+            <p>Welcome back Beth, you selected <span id="total-ticket-num"> </span> tickets - <a href="#0">change my order</a></p>
+            <ul class="returning-user-view">
+                <li>
+                    <form id="event-ticket-purchase">
+                                    <div id="purchase-container">
+                                        <div class="gutterless form-group">
+                                            <div id="" class="input-container">
+                                                <span class="field-required"></span>
+                                                <label for="fullname">Credit Card Number</label>
+                                                <input type="text" maxlength="200" value="" id="fullname" name="fullname">
+                                            </div>
+                                            <div id="" class="input-container">
+                                                <span class="field-required"></span>
+                                                <label for="fullname">Full Name</label>
+                                                <input type="text" maxlength="200" value="" id="fullname" name="fullname">
+                                            </div>
+                                            <div id="user_type_password_input_container" class="input-container col five">
+                                                <span class="field-required"></span>
+                                                <label for="Password">CVV</label>
+                                                <input type="password" maxlength="4" id="Password" name="Password">
+                                            </div>
+                                            <div class="col one"> &nbsp;</div>
+                                            <div id="user_type_password_input_container" class="input-container col six">
+                                                <span class="field-required"></span>
+                                                <label for="Password">Expiration Date</label>
+                                                <input type="password" maxlength="07" id="Password" name="Password">
+                                            </div>
+                                        </div>
+                                        <br /><br />
+                                
+                                            <button type="submit" value="Log In" name="Log In" id=" " class="btn-primary pull-right">
+                                                <span>Purchase</span>
+                                            </button>
+            
+                                    </div>
+                    </form>
+                </li>
+            </ul> 
+        </div> 
+    </div>           
+        
+
+
+        <script type = "text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js" > </script>
+
+        
+        <script>
+
+        $("#ticket-card").click(function(){
+            $(this).addClass("slide-out");
+            $('#sponsor-card').delay(100).queue(function(){
+                $(this).addClass("slide-out");
+            });
+            $('#ticket-order-number .individial-tickets').delay(300).queue(function(){
+                $(this).addClass("selected");
+            });
+            $('.ticket-list').delay(500).queue(function(){
+                $(this).addClass("slide-out");
+            });
+
+
+            
+        });
+
+        $("#sponsor-card").click(function(){
+            $(this).addClass("slide-out");
+            $('#ticket-card').delay(100).queue(function(){
+                $(this).addClass("slide-out");
+            });
+            $('#ticket-order-number .sponsor-tickets').delay(300).queue(function(){
+                $(this).addClass("selected");
+            });
+        }); 
+
+        $("#ticket-qty").change(function(){
+            if(parseInt(this.value) > 9){
+                $("#morethanten").removeClass( "hide" );
+             } 
+             if(parseInt(this.value) < 10){
+                $("#morethanten").addClass( "hide" );
+             } 
+             if(parseInt(this.value) < 1){
+                $("#lessthanone").removeClass( "hide" );
+             } 
+             if(parseInt(this.value) > 0){
+                $("#lessthanone").addClass( "hide" );
+             } 
+             $("#ticket-qty").val(); {
+                var number = $( this).val();
+                var value = $( this ).val()*125;
+                $("#total-price-val").html (value );
+                $("#total-ticket-num").html (number);
+             }
+        });
+
+        $("#log-in-button").click(function(){
+            $("#new-return-user").removeClass("hidden");
+            $("#ticket-order-number li").addClass("slide-out");
+            $('#log-in-button').delay(150).queue(function(){
+                $("#new-return-user").addClass("selected");
+            });
+        }); 
+
+        $("#user_type_login_button").click(function(){
+            $("#new-return-user").removeClass("selected");
+            $("#new-return-user").addClass("slide-out");
+            $("#payment-container-wrapper").removeClass("hidden");
+            $('#user_type_login_button').delay(150).queue(function(){
+                $("#payment-container-wrapper").addClass("selected");
+            });    
+        }); 
+        </script>
+
+        <style>
+        
+        </style>
+
+    </main>
+
+    </body>
+</html>

@@ -1,0 +1,462 @@
+$icon-font-family: "icons";
+
+@font-face {
+  font-family: $icon-font-family;
+  src: url('assets/fonts/icons/icons.eot');
+  src: url('assets/fonts/icons/icons.eot?#iefix') format('eot'),
+    url('assets/fonts/icons/icons.woff') format('woff'),
+    url('assets/fonts/icons/icons.ttf') format('truetype'),
+    url('assets/fonts/icons/icons.svg#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon {
+  &:before {
+    display: inline-block;
+    font-family: $icon-font-family;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+    
+      &.arrow-curve-ne:before {
+        content: "\E001"
+      }
+    
+  
+    
+      &.arrow-curve-nw:before {
+        content: "\E002"
+      }
+    
+  
+    
+      &.arrow-curve-se:before {
+        content: "\E003"
+      }
+    
+  
+    
+      &.arrow-curve-sw:before {
+        content: "\E004"
+      }
+    
+  
+    
+      &.ban:before {
+        content: "\E005"
+      }
+    
+  
+    
+      &.bookmark:before {
+        content: "\E006"
+      }
+    
+  
+    
+      &.bookmarks:before {
+        content: "\E007"
+      }
+    
+  
+    
+      &.calendar:before {
+        content: "\E008"
+      }
+    
+  
+    
+      &.call-outline:before {
+        content: "\E009"
+      }
+    
+  
+    
+      &.call:before {
+        content: "\E00A"
+      }
+    
+  
+    
+      &.camera:before {
+        content: "\E00B"
+      }
+    
+  
+    
+      &.caret-e:before {
+        content: "\E00C"
+      }
+    
+  
+    
+      &.caret-n:before {
+        content: "\E00D"
+      }
+    
+  
+    
+      &.caret-s:before {
+        content: "\E00E"
+      }
+    
+  
+    
+      &.caret-w:before {
+        content: "\E00F"
+      }
+    
+  
+    
+      &.circle-opaque-ban:before {
+        content: "\E010"
+      }
+    
+  
+    
+      &.circle-opaque-check:before {
+        content: "\E011"
+      }
+    
+  
+    
+      &.circle-opaque-close:before {
+        content: "\E012"
+      }
+    
+  
+    
+      &.circle-opaque-info:before {
+        content: "\E013"
+      }
+    
+  
+    
+      &.circle-opaque-minus:before {
+        content: "\E014"
+      }
+    
+  
+    
+      &.circle-opaque-plus:before {
+        content: "\E015"
+      }
+    
+  
+    
+      &.circle-outline-check:before {
+        content: "\E016"
+      }
+    
+  
+    
+      &.circle-outline-close:before {
+        content: "\E017"
+      }
+    
+  
+    
+      &.circle-outline-info:before {
+        content: "\E018"
+      }
+    
+  
+    
+      &.circle-outline-minus:before {
+        content: "\E019"
+      }
+    
+  
+    
+      &.circle-outline-play:before {
+        content: "\E01A"
+      }
+    
+  
+    
+      &.circle-outline-plus:before {
+        content: "\E01B"
+      }
+    
+  
+    
+      &.clipboard-opaque:before {
+        content: "\E01C"
+      }
+    
+  
+    
+      &.clipboard:before {
+        content: "\E01D"
+      }
+    
+  
+    
+      &.close:before {
+        content: "\E01E"
+      }
+    
+  
+    
+      &.directions-opaque:before {
+        content: "\E01F"
+      }
+    
+  
+    
+      &.directions:before {
+        content: "\E020"
+      }
+    
+  
+    
+      &.email:before {
+        content: "\E021"
+      }
+    
+  
+    
+      &.fastforward-outline:before {
+        content: "\E022"
+      }
+    
+  
+    
+      &.form-checkbox-checked:before {
+        content: "\E023"
+      }
+    
+  
+    
+      &.form-checkbox-unchecked:before {
+        content: "\E024"
+      }
+    
+  
+    
+      &.gift:before {
+        content: "\E025"
+      }
+    
+  
+    
+      &.heart-outline:before {
+        content: "\E026"
+      }
+    
+  
+    
+      &.heart:before {
+        content: "\E027"
+      }
+    
+  
+    
+      &.heartbeat-outline:before {
+        content: "\E028"
+      }
+    
+  
+    
+      &.heartbeat:before {
+        content: "\E029"
+      }
+    
+  
+    
+      &.ico_Many:before {
+        content: "\E02A"
+      }
+    
+  
+    
+      &.link:before {
+        content: "\E02B"
+      }
+    
+  
+    
+      &.loading:before {
+        content: "\E02C"
+      }
+    
+  
+    
+      &.location-outline:before {
+        content: "\E02D"
+      }
+    
+  
+    
+      &.location:before {
+        content: "\E02E"
+      }
+    
+  
+    
+      &.microscope-outline:before {
+        content: "\E02F"
+      }
+    
+  
+    
+      &.news-outline:before {
+        content: "\E030"
+      }
+    
+  
+    
+      &.parking-outline:before {
+        content: "\E031"
+      }
+    
+  
+    
+      &.parking:before {
+        content: "\E032"
+      }
+    
+  
+    
+      &.pause-outline:before {
+        content: "\E033"
+      }
+    
+  
+    
+      &.phone-outline:before {
+        content: "\E034"
+      }
+    
+  
+    
+      &.phone:before {
+        content: "\E035"
+      }
+    
+  
+    
+      &.play-outline:before {
+        content: "\E036"
+      }
+    
+  
+    
+      &.plus:before {
+        content: "\E037"
+      }
+    
+  
+    
+      &.rewind-outline:before {
+        content: "\E038"
+      }
+    
+  
+    
+      &.search-outline:before {
+        content: "\E039"
+      }
+    
+  
+    
+      &.search:before {
+        content: "\E03A"
+      }
+    
+  
+    
+      &.send-email:before {
+        content: "\E03B"
+      }
+    
+  
+    
+      &.send-mobile:before {
+        content: "\E03C"
+      }
+    
+  
+    
+      &.share:before {
+        content: "\E03D"
+      }
+    
+  
+    
+      &.star-outline:before {
+        content: "\E03E"
+      }
+    
+  
+    
+      &.star-shine-outline:before {
+        content: "\E03F"
+      }
+    
+  
+    
+      &.star:before {
+        content: "\E040"
+      }
+    
+  
+    
+      &.stop-outline:before {
+        content: "\E041"
+      }
+    
+  
+    
+      &.video:before {
+        content: "\E042"
+      }
+    
+  
+    
+      &.volume-loud:before {
+        content: "\E043"
+      }
+    
+  
+    
+      &.volume-low:before {
+        content: "\E044"
+      }
+    
+  
+    
+      &.volume-med:before {
+        content: "\E045"
+      }
+    
+  
+    
+      &.volume-mute:before {
+        content: "\E046"
+      }
+    
+  
+}
+
+@mixin icon-defaults {
+  font-family: $icon-font-family;
+  font-size: $icon-font-size;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -o-transform: scale(1);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+}
+

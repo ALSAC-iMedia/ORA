@@ -1,0 +1,172 @@
+//---------------------------------------------------
+// Typography
+// --------------------------------------------------
+
+@mixin text-config ($family, $size, $weight, $margin, $padding, $color, $line-height, $letter-spacing) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight; 
+  margin: $margin;
+  padding: $padding;
+  color: $color;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin horizontal-rule($hr-height: 1px, $hr-color: #ccc, $hr-margin: 1em 0 1em 0, $hr-padding: 0) {
+    display: block;
+    height: $hr-height;
+    border: 0;
+    border-top: $hr-height solid $hr-color;
+    margin: $hr-margin;
+    padding: $hr-padding;
+    clear: both;
+}
+
+@mixin delineator(
+    $delineator-height: 2px,
+    $delineator-color: $primary,
+    $delineator-width: 2em,
+    $delineator-padding: 0,
+    $delineator-spacing-above: .75em
+  ){
+
+    padding: $delineator-padding;
+    line-height: 0;
+    display: inline-block;
+    border: 0;
+    height: $delineator-spacing-above;
+    border-top: $delineator-height solid $delineator-color;
+    width: $delineator-width;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+
+
+html, body {
+  color: $base;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+/*-- Address `font-family` inconsistency between `textarea` and other form elements--*/
+input,
+button,
+select,
+textarea {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: underline;
+  }
+}
+
+// Set the H1-H6 tags
+// -------------------------
+h1 {
+  @include text-config($h1-family, $h1-size, $h1-weight, $h1-margin, $h1-padding, $h1-text-color, $h1-line-height, $h1-letter-spacing);
+}
+h2 {
+  @include text-config($h2-family, $h2-size, $h2-weight, $h2-margin, $h2-padding, $h2-text-color, $h2-line-height, $h2-letter-spacing);
+}
+h3 {
+  @include text-config($h3-family, $h3-size, $h3-weight, $h3-margin, $h3-padding, $h3-text-color, $h3-line-height, $h3-letter-spacing);
+}
+h4 {
+  @include text-config($h4-family, $h4-size, $h4-weight, $h4-margin, $h4-padding, $h4-text-color, $h4-line-height, $h4-letter-spacing);
+}
+h5 {
+  @include text-config($h5-family, $h5-size, $h5-weight, $h5-margin, $h5-padding, $h5-text-color, $h5-line-height, $h5-letter-spacing);
+  text-transform: uppercase;
+}
+h6 {
+  @include text-config($h6-family, $h6-size, $h6-weight, $h6-margin, $h6-padding, $h6-text-color, $h6-line-height, $h6-letter-spacing);
+  text-transform: uppercase;
+}
+
+p {
+  @include text-config($p-family, $p-size, $p-weight, $p-margin, $p-padding, $p-text-color, $p-line-height, $p-letter-spacing);
+}
+
+ol, dl, ul {
+  @include text-config($list-family, $list-text-size, $list-weight, $list-margin, $list-padding, $list-text-color, $list-line-height, $list-letter-spacing);
+  
+  li, dt {
+    padding: $li-padding;
+    margin: $li-margin;
+    font-size: 100%;
+  }
+  dt {
+    color: $dt-text-color;
+  }
+  dd {
+    color: $dd-text-color;
+    padding: $dd-padding;
+    margin: $dd-margin;
+  }
+}
+
+li {
+
+  > ul {
+    // padding-top: $nested-list-padding-top;
+  }
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+  padding: $ol-padding;
+}
+
+nested-list-fix {
+  margin: 0;
+  font-size: 100%;
+}
+
+dl > dl {
+  @extend nested-list-fix;
+}
+
+ul > ul {
+  @extend nested-list-fix;
+
+}
+
+ol > ol {
+  @extend nested-list-fix;
+
+}
+
+ul ol {
+  @extend nested-list-fix;
+
+}
+
+ol ul {
+  @extend nested-list-fix;
+
+}
+
+li > ul {
+  @extend nested-list-fix;
+}
+
+li > li {
+  font-size: 100%;
+}
+
+

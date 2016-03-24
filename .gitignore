@@ -1,0 +1,13 @@
+**/.svn
+**/.DS_STORE
+**/*.scssc
+.DS_STORE
+scss/.sass_cache
+.codekit-cache
+node_modules
+bower_components
+npm-debug.log
+bower_components/
+bower_components/**/*
+plugins/**
+vendor/**

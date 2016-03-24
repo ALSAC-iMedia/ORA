@@ -1,0 +1,163 @@
+@mixin image-base() {
+  display: block;
+  margin: 0;
+  width: 100%;
+
+  img {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    float: none !important;
+    display: block;
+    width: 100% !important;
+  }
+
+  figcaption {
+    font-size: 0.75rem;
+  }
+
+}
+
+@mixin image-layout(
+  $image-display: block,
+  $image-alignment: left,
+  $image-spacing: 1em
+) {
+
+  margin: $image-spacing;
+
+  @if $image-display == float {
+    float: $image-alignment;
+  } 
+
+  @if $image-alignment != center {
+    margin-#{$image-alignment}: 0;
+  } @else {
+    margin: $image-spacing auto;
+  }
+  
+}
+
+@mixin image-accent(
+  $image-accent-color: transparent,
+  $image-bg-color: $image-accent-color,
+  $image-border-color: null,
+  $image-padding: 1em,
+  $image-radius: 0
+) {
+  display: block;
+  padding: $image-padding;
+  background-color: $image-bg-color;
+
+  @if $image-radius {
+     border-radius: $image-radius;
+     object-fit: cover;
+  }
+ 
+  @if $image-border-color  {
+    border: 1px solid $image-border-color;
+  }
+
+}
+
+@mixin image(
+  $image-accent-color: transparent,
+  $image-bg-color: $image-accent-color,
+  $image-border-color: null,
+  $image-padding: 1em,
+  $image-alignment: left,
+  $image-display: block,
+  $image-layout: ($image-display, $image-alignment),
+  $image-width: 100%,
+  $image-maxwidth: none,
+  $image-radius: 0
+) {
+
+  width: $image-width;
+  max-width: $image-maxwidth;
+  border-radius: $image-radius;
+
+ @include image-layout(
+    $image-display: nth($image-layout, 1),
+    $image-alignment: nth($image-layout, 2)
+  );
+
+ @include image-accent(
+    $image-accent-color: $image-accent-color,
+    $image-bg-color: $image-bg-color,
+    $image-border-color: $image-border-color,
+    $image-padding: $image-padding
+  );
+
+}
+
+// @mixin image-sizes(
+//   $prefix: "img",
+//   $sizes: (
+//     small: (
+//       height: 23%,
+//       width: 265px
+//     ),
+//     medium: (
+//       height: 46%,
+//       width: 550px
+//     ),
+//     large: (
+//       height: 100%,
+//       width: none
+//     )
+//   );
+// ) {
+
+//   @each $size, $dimensions in $sizes {
+//     @if $prefix {
+//       $class: #{$prefix}-#{$size};
+//     } @else {
+//       $class: $size;
+//     }
+//     &.#{$class} {
+//      width: nth($dimensions, 1);
+//      max-width: nth($dimensions, 2);
+//     }
+//   }
+  
+// }
+
+@mixin image-layouts() {
+
+  &.img-block-center {
+    @include image-layout(
+      $image-display: block,
+      $image-alignment: center
+    );
+  }
+
+  &.img-block-left {
+   @include image-layout(
+        $image-display: block,
+        $image-alignment: left
+      );
+  }
+
+  &.img-block-right {
+    @include image-layout(
+      $image-display: block,
+      $image-alignment: right
+    );
+  }
+
+  &.img-float-left {
+    @include image-layout(
+       $image-display: float,
+       $image-alignment: left
+     );
+  }
+
+  &.img-float-right {
+    @include image-layout(
+      $image-display: float,
+      $image-alignment: right
+    );
+  }
+}

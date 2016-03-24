@@ -1,0 +1,192 @@
+$default-card-color 			: inherit;
+$default-card-radius 			: $radius;
+$default-card-shadow 			: none;
+$default-card-spacing 			: 0.5em;
+$default-card-padding 			: 1em;
+$default-card-count 			: 4;
+
+$default-card-bp-1				: ($bp-1, 3); // ($breakpoint, #-of-columns-at-breakpoint)
+$default-card-bp-2				: ($bp-3, 2); // ($breakpoint, #-of-columns-at-breakpoint)
+$default-card-bp-3				: ($bp-4, 1); // ($breakpoint, #-of-columns-at-breakpoint)
+
+
+
+// Seaparate base & style mixins for use of multiple card appearances in the same site
+@mixin cards-style(
+	$card-bg-color 			: lighten($card-color, 40%),
+	$card-color 			: $default-card-color,
+	$card-border 			: 1px solid darken($card-bg-color, 10%),
+	$card-radius 			: $default-card-radius,
+	$card-shadow 			: $default-card-shadow,
+	$card-spacing 			: $default-card-spacing,
+	$card-padding 			: $default-card-padding,
+	$card-count 			: $default-card-count,
+	$card-header-bg-color 	: $card-color,
+	$card-header-color 		: color-contrast($card-color, darken($card-color, 25%), $inverse),
+	$card-footer-bg-color 	: $card-color,
+	$card-footer-color 		: color-contrast($card-color, darken($card-color, 25%), $inverse),
+	$card-bp-1				: $default-card-bp-1,
+	$card-bp-2				: $default-card-bp-2,
+	$card-bp-3				: $default-card-bp-3,
+	$card-breakpoints		: ($card-bp-1, $card-bp-2, $card-bp-3)
+){
+
+	display: inline-block;
+	padding-left: 0;
+
+	$last-bp: nth($card-breakpoints, length($card-breakpoints));
+
+	@include breakpoint($mobile-bp) {
+		padding-left: $mobile-padding;
+		padding-right: $mobile-padding;
+	}
+
+	.card {
+		color: $card-color;
+		background-color: $card-bg-color;
+		border: $card-border;
+		border-radius: $card-radius;
+		box-shadow: $card-shadow;
+		margin-bottom: $card-spacing;
+		padding: 0;
+		display: block;
+		float: left;
+
+		@media (min-width: nth(nth($card-breakpoints, 1), 1)) {
+
+			$width: 100% / $card-count;
+			margin: $card-spacing;
+
+			@if nth(nth($card-breakpoints, 1), 1) <= $mobile-bp {
+
+				$allowance: ( ( $card-count - 1 ) * 2 * $card-spacing ) / $card-count ;
+
+				&:nth-child(#{$card-count}n+1) {
+					margin-left: 0;
+				}
+				&:nth-child(#{$card-count}n+#{$card-count}) {
+					margin-right: 0;
+				}
+			} @else {
+				$allowance: ( $card-count * 2 * $card-spacing ) / $card-count ;
+			}
+
+			width: calc( #{$width} - #{$allowance} );
+
+		}
+
+		@for $i from 1 to length($card-breakpoints) {
+
+			$bp: nth($card-breakpoints, $i);
+			$bp-span: nth($bp, 2);  
+			$minwidth-bp: nth($card-breakpoints, $i+1);
+
+			@media (min-width: nth($minwidth-bp, 1)) and (max-width: nth($bp, 1))  {
+
+				$width: 100% / $bp-span;
+				margin: $card-spacing;
+
+				@if nth($bp, 1) <= $mobile-bp {
+
+					$allowance: ( ( $bp-span - 1 ) * 2 * $card-spacing ) / $bp-span ;
+
+					&:nth-child(#{$bp-span}n+1) {
+						margin-left: 0;
+					}
+					&:nth-child(#{$bp-span}n+#{$bp-span}) {
+						margin-right: 0;
+					}
+				} @else {
+					$allowance: ( $bp-span * 2 * $card-spacing ) / $bp-span ;
+				}
+
+				width: calc( #{$width} - #{$allowance} );
+			}
+		}
+
+		@include breakpoint(nth($last-bp, 1), max) {
+
+			$bp-span: nth($last-bp, 2);  
+			$width: 100% / $bp-span;
+			
+			margin: $card-spacing;
+
+
+			@if nth($last-bp, 1) <= $mobile-bp {
+
+				$allowance: ( ( $bp-span - 1 ) * 2 * $card-spacing ) / $bp-span ;
+
+				&:nth-child(#{$bp-span}n+1) {
+					margin-left: 0;
+				}
+				&:nth-child(#{$bp-span}n+#{$bp-span}) {
+					margin-right: 0;
+				}
+			} @else {
+				$allowance: ( $bp-span * 2 * $card-spacing ) / $bp-span ;
+			}
+
+			width: calc( #{$width} - #{$allowance} );
+		
+		}
+
+		.content {
+			padding: $card-padding;
+		}
+		header {
+			background-color: $card-header-bg-color;
+			color: $card-header-color;
+			border-radius: $card-radius $card-radius 0 0;
+			padding: $card-padding;
+		}
+
+		footer {
+			background-color: $card-footer-bg-color;
+			color: $card-footer-color;
+			border-radius: 0 0 $card-radius $card-radius;
+			padding: $card-padding;
+		}
+	}
+
+}
+
+
+// Single mixin for use of single card appeareance on a
+@mixin cards(
+	$card-bg-color 			: lighten($card-color, 40%),
+	$card-color 			: $default-card-color,
+	$card-border 			: 1px solid darken($card-bg-color, 10%),
+	$card-radius 			: $default-card-radius,
+	$card-shadow 			: $default-card-shadow,
+	$card-spacing 			: $default-card-spacing,
+	$card-padding 			: $default-card-padding,
+	$card-count 			: $default-card-count,
+	$card-header-bg-color 	: $card-color,
+	$card-header-color 		: color-contrast($card-color, darken($card-color, 25%), $inverse),
+	$card-footer-bg-color 	: $card-color,
+	$card-footer-color 		: color-contrast($card-color, darken($card-color, 25%), $inverse),
+	$card-bp-1				: $default-card-bp-1,
+	$card-bp-2				: $default-card-bp-2,
+	$card-bp-3				: $default-card-bp-3,
+	$card-breakpoints		: ($card-bp-1, $card-bp-2, $card-bp-3)
+) {
+	//@include cards-base();
+	@include cards-style(
+		$card-bg-color 			: $card-bg-color,
+		$card-color 			: $card-color,
+		$card-border 			: $card-border,
+		$card-radius 			: $card-radius,
+		$card-shadow 			: $card-shadow,
+		$card-spacing 			: $card-spacing,
+		$card-padding 			: $card-padding,
+		$card-count 			: $card-count,
+		$card-header-bg-color 	: $card-header-bg-color,
+		$card-header-color 		: $card-header-color,
+		$card-footer-bg-color 	: $card-footer-bg-color,
+		$card-footer-color 		: $card-footer-color,
+		$card-bp-1				: $card-bp-1,
+		$card-bp-2				: $card-bp-2,
+		$card-bp-3				: $card-bp-3,
+		$card-breakpoints		: $card-breakpoints
+	);
+}

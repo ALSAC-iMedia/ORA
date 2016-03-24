@@ -1,0 +1,146 @@
+//
+// Breadcrumb
+// --------------------------------------------------
+
+$default-breadcrumb-icon             : $caret-right;
+$default-breadcrumb-delineator-color : $grey-30;
+$default-breadcrumb-li-padding       : 0 0 0 1em;
+
+$default-breadcrumb-container-background-color : $grey-10;
+$default-breadcrumb-container-margin           : 0;
+$default-breadcrumb-container-radius           : 0;
+$default-breadcrumb-container-padding          : .35em 0 .25em 0;
+
+$default-breadcrumb-text-background-color      : transparent;
+$default-breadcrumb-text-background-color-hover: transparent;
+$default-breadcrumb-text-padding               : 0 1em 0 0;
+$default-breadcrumb-text-color                 : $primary;
+$default-breadcrumb-text-size                  : $base-font-size;
+$default-breadcrumb-text-color-hover           : $grey-30;
+$default-breadcrumb-text-weight                : 300;
+$default-breadcrumb-line-height                : 130%;
+
+@mixin breadcrumb-base() {
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  
+  li {
+    @include inline-block;
+    float: left;
+    text-align: left;
+
+    &:first-child { border-left: 0 none; }
+
+    &:last-child { border-right: 0 none; }
+
+      a{
+        @include inline-block;
+        box-sizing: border-box;
+        text-decoration: none;
+      }
+
+      i {
+         @include icon-defaults;
+      }
+  }
+}
+
+
+@mixin breadcrumb-style (
+  $breadcrumb-icon              : $default-breadcrumb-icon,
+  $breadcrumb-delineator-color  : $default-breadcrumb-delineator-color,
+  $breadcrumb-li-padding        : $default-breadcrumb-li-padding,
+
+  $breadcrumb-container-background-color : $default-breadcrumb-container-background-color,
+  $breadcrumb-container-margin           : $default-breadcrumb-container-margin,
+  $breadcrumb-container-radius           : $default-breadcrumb-container-radius,
+  $breadcrumb-container-padding          : $default-breadcrumb-container-padding,
+  
+  $breadcrumb-text-background-color       : $default-breadcrumb-text-background-color,
+  $breadcrumb-text-background-color-hover : $default-breadcrumb-text-background-color-hover,
+  $breadcrumb-text-padding                : $default-breadcrumb-text-padding,
+  $breadcrumb-text-color                  : $default-breadcrumb-text-color,
+  $breadcrumb-text-size                   : $default-breadcrumb-text-size,
+  $breadcrumb-text-color-hover            : $default-breadcrumb-text-color-hover,
+  $breadcrumb-text-weight                 : $default-breadcrumb-text-weight,
+  $breadcrumb-line-height                 : $default-breadcrumb-line-height
+)
+
+{
+    border-radius: $breadcrumb-container-radius;
+    background: $breadcrumb-container-background-color;
+    padding: $breadcrumb-container-padding;
+    margin: $breadcrumb-container-margin;
+    
+    li {
+      font-size: $breadcrumb-text-size;
+      color: $breadcrumb-delineator-color;
+      line-height: $breadcrumb-line-height;
+      padding: $breadcrumb-li-padding;
+
+        a{
+          padding: $breadcrumb-text-padding;
+          color: $breadcrumb-text-color;
+          font-weight: $breadcrumb-text-weight;
+          background: $breadcrumb-text-background-color;
+
+          &:hover { color: $breadcrumb-text-color-hover; }
+
+        }
+
+        &:hover { background: $breadcrumb-text-background-color-hover; }
+
+        i {
+            &:before {
+            content: $breadcrumb-icon;
+          }
+        }
+    }
+}
+
+@mixin breadcrumb(
+  $breadcrumb-icon              : $default-breadcrumb-icon,
+  $breadcrumb-delineator-color  : $default-breadcrumb-delineator-color,
+  $breadcrumb-li-padding        : $default-breadcrumb-li-padding,
+
+  $breadcrumb-container-background-color : $default-breadcrumb-container-background-color,
+  $breadcrumb-container-margin           : $default-breadcrumb-container-margin,
+  $breadcrumb-container-radius           : $default-breadcrumb-container-radius,
+  $breadcrumb-container-padding          : $default-breadcrumb-container-padding,
+  
+  $breadcrumb-text-background-color       : $default-breadcrumb-text-background-color,
+  $breadcrumb-text-background-color-hover : $default-breadcrumb-text-background-color-hover,
+  $breadcrumb-text-padding                : $default-breadcrumb-text-padding,
+  $breadcrumb-text-color                  : $default-breadcrumb-text-color,
+  $breadcrumb-text-size                   : $default-breadcrumb-text-size,
+  $breadcrumb-text-color-hover            : $default-breadcrumb-text-color-hover,
+  $breadcrumb-text-weight                 : $default-breadcrumb-text-weight,
+  $breadcrumb-line-height                 : $default-breadcrumb-line-height
+) {
+
+  @include breadcrumb-base();
+  @include breadcrumb-style(
+    $breadcrumb-icon              : $breadcrumb-icon,
+    $breadcrumb-delineator-color  : $breadcrumb-delineator-color,
+    $breadcrumb-li-padding        : $breadcrumb-li-padding,
+
+    $breadcrumb-container-background-color : $breadcrumb-container-background-color,
+    $breadcrumb-container-margin           : $breadcrumb-container-margin,
+    $breadcrumb-container-radius           : $breadcrumb-container-radius,
+    $breadcrumb-container-padding          : $breadcrumb-container-padding,
+    
+    $breadcrumb-text-background-color       : $breadcrumb-text-background-color,
+    $breadcrumb-text-background-color-hover : $breadcrumb-text-background-color-hover,
+    $breadcrumb-text-padding                : $breadcrumb-text-padding,
+    $breadcrumb-text-color                  : $breadcrumb-text-color,
+    $breadcrumb-text-size                   : $breadcrumb-text-size,
+    $breadcrumb-text-color-hover            : $breadcrumb-text-color-hover,
+    $breadcrumb-text-weight                 : $breadcrumb-text-weight,
+    $breadcrumb-line-height                 : $breadcrumb-line-height
+  );
+
+}

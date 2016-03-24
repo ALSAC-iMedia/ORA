@@ -1,0 +1,378 @@
+
+// $default-tabs-max-width: $element-max-width;
+$default-tabs-layout: folder;
+$default-tabs-active-color: $inverse;
+$default-tabs-accent-color: $secondary;
+$default-tabs-inactive-color: $grey-30;
+$default-tabs-border: false;
+$default-tabs-size: 1em;
+$default-tabs-transition: true; //transitions on colors
+$default-tabs-accent-border: top; //Current tab border accent
+$default-tabs-text-align: center;
+$default-tabs-flex: true; // Full-width tabs
+$default-tabs-border-radius: 0; 
+$default-tabs-indicator: false; //Current tab arrow
+$default-tabs-responsive-behavior: (accordion, extend); // true, or (true, extends)
+
+
+@mixin tabs-base() {
+
+  @include breakpoint($bp-4, min) {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 100%;
+
+    nav {
+      text-align: left;
+      font-size: 1.2em;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+
+      .at-nav {
+        position: relative;
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+        line-height: 0.78em;
+        display: inline-block;
+        width: 100%;
+
+        .nav-item {
+          position: relative;
+          z-index: 1;
+          display: inline-block;
+          margin: 0;
+          padding: 0;
+          width: auto;
+
+        }
+      }
+
+      a {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 2.5;
+        padding: 0 1em;
+
+        &:hover { text-decoration: none; }
+
+        .cta-text { display: none; }
+      }
+    }
+    .content-wrap .at-content > .nav-item { display: none; }
+
+    &.accordion .content-wrap .at-content >.nav-item { display: block; }
+
+    .content-wrap {
+      position: relative;
+      z-index: 0;
+
+      .at-content {
+        padding: 0;
+
+        > .nav-item { display: none; }
+
+        > .item {
+          display: none;
+          margin: 0 auto;
+          padding: 1em;
+          box-sizing: border-box;
+
+
+          h1, h2, h3, h4, h5, h6 {
+            &:first-child { margin-left: 0; }
+          }
+
+          &.tab-current { 
+            display: block; 
+          }
+        }
+      }
+    }
+
+    .content-wrap .at-content > .nav-item { display: none; }
+
+    &.accordion .content-wrap .at-content >.nav-item { display: block; }
+
+    // !!! INFO: The below code might cause some issues in IE8
+    // Untested
+    
+    .no-js & .content-wrap section {
+      display: block;
+      padding-bottom: 2em;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .no-flexbox nav .at-nav {
+      display: block;
+
+      .nav-item {
+        min-width: 15%;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+@mixin tabs-style(
+   // $tabs-max-width: $default-tabs-max-width,
+   $tabs-layout: $default-tabs-layout,
+   $tabs-active-color: $default-tabs-active-color,
+   $tabs-accent-color: $default-tabs-accent-color,
+   $tabs-inactive-color: $default-tabs-inactive-color,
+   $tabs-border: $default-tabs-border,
+   $tabs-size: $default-tabs-size,
+   $tabs-transition: $default-tabs-transition, //transitions on colors
+   $tabs-accent-border: $default-tabs-accent-border, //Current tab border accent
+   $tabs-text-align: $default-tabs-text-align,
+   $tabs-flex: $default-tabs-flex, // Full-width tabs
+   $tabs-border-radius: $default-tabs-border-radius, 
+   $tabs-indicator: $default-tabs-indicator, //Current tab arrow
+   $tabs-responsive-behavior: $default-tabs-responsive-behavior
+  ) {
+
+
+  @mixin tabs-desktop {
+    nav .at-nav {
+      .nav-item {
+        border-radius: $tabs-border-radius $tabs-border-radius 0 0;
+
+        a { 
+          text-align: $tabs-text-align; 
+          border-radius: $tabs-border-radius $tabs-border-radius 0 0;
+          color: darken($tabs-inactive-color, 10%);
+        }
+        &.tab-current {
+          a { 
+            color: $tabs-accent-color;
+            border-#{$tabs-accent-border}: 4px solid $tabs-accent-color;
+          }
+        }
+      }
+      @if $tabs-flex == true {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        -ms-box-orient: horizontal;
+        -ms-box-pack: center;
+        -webkit-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        li {
+          display: inline-block;
+          flex: 1;
+          -moz-flex: 1;
+          -ms-flex: 1;
+          -webkit-flex: 1;
+          min-height: 0;
+          min-width: 0;
+        }
+      } @else {
+        li {
+          display: block;
+          float: left;
+        }
+      }
+    }
+    .content-wrap {
+      .item { 
+        background-color: $tabs-active-color;
+      }
+    
+    }
+
+    //---------------------------
+    // Folder Style Tabs
+    // --------------------------
+    @if $tabs-layout == folder {
+      nav {
+        border-bottom: 1px solid lighten($tabs-inactive-color, 15%);
+
+        .nav-item {
+          bottom: -1px;
+          border: 1px solid lighten($tabs-inactive-color, 15%); 
+          border-bottom-color: transparent;
+          border-right-width: 0;
+
+          &:last-child { border-right-width: 1px; }
+
+          a {
+            background: $tabs-active-color;
+            line-height: 1;
+            padding: $tabs-size $tabs-size*1.5;
+            @if $tabs-transition == true { 
+              transition: background-color 0.2s ease-out, color 0.2s ease-out; 
+            }
+            &:hover, &:focus { color: $tabs-accent-color; }
+          }
+          &.tab-current { 
+            border-bottom: 1px solid $tabs-active-color;
+            a {
+              background: $tabs-active-color;
+            }
+          }
+          &:not(.tab-current) a { border-#{$tabs-accent-border}: 4px solid $tabs-active-color; }
+        }
+      }
+      .content-wrap .at-content .item { 
+        @if $tabs-border == true {
+          &.tab-current { 
+            border: 1px solid lighten($tabs-inactive-color 15%);
+          }
+        }
+      }
+    }
+
+
+    //---------------------------
+    // Minimal Style Tabs
+    // --------------------------
+    @if $tabs-layout == minimal {
+      nav .at-nav {
+        background-color: $tabs-active-color;
+        border-bottom: 1px solid $tabs-inactive-color;
+        
+        a {
+          padding: $tabs-size $tabs-size*2;
+          @if $tabs-transition == true {
+            transition: color 0.2s ease-out;
+          }
+        }
+        .nav-item.tab-current {
+          @if $tabs-indicator == true {
+            &:after, &:before {
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              width: 0;
+              height: 0;
+              border: solid transparent;
+              content: "";
+              pointer-events: none;
+            }
+            @if $tabs-accent-border == false {
+              &:after {
+                margin-left: -10px;
+                border-width: 10px;
+                border-top-color: $tabs-active-color;
+              }
+              &:before {
+                margin-left: -11px;
+                border-width: 11px;
+                border-top-color: $tabs-inactive-color;
+              }
+            } @else {
+              &:after {
+                margin-left: -11px;
+                border-width: 11px;
+                border-top-color: $tabs-accent-color;
+              }
+            }
+            @if $tabs-flex == true {
+              @if $tabs-text-align != center {
+                &:after, &:before { 
+                  left: auto;
+                  right: auto;
+                  #{$tabs-text-align}: $tabs-size*4 + $tabs-size; 
+                }
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+
+  @if $tabs-responsive-behavior {
+    @include breakpoint($mobile-bp, min) {
+
+      @include tabs-desktop;
+
+    }
+
+    @include breakpoint($mobile-bp, max) {
+
+      @if nth($tabs-responsive-behavior, 2) == extend {
+
+        @extend .accordion;
+
+      } @else {
+
+        @if $tabs-layout == folder {
+
+          $resTabsAcc-heading-bg-color: $tabs-accent-color;
+          $resTabsAcc-layout: bars;
+
+        } @else {
+
+           $resTabsAcc-heading-bg-color: null;
+           $resTabsAcc-layout: minimal;
+
+        }
+
+        @include accordion-style(
+          $accordion-accent-color: $tabs-accent-color,
+          $accordion-heading-bg-color: $resTabsAcc-heading-bg-color,
+          $accordion-accent-border: $tabs-accent-border,
+          $accordion-layout: $resTabsAcc-layout,
+          $accordion-heading-size: $tabs-size,
+          $accordion-border-radius: $tabs-border-radius,
+          $accordion-heading-color: $tabs-accent-color
+        );
+      }
+    }
+  } @else {
+    @include tabs-desktop;
+  }
+}
+
+@mixin tabs(
+ // $tabs-max-width: $default-tabs-max-width,
+ $tabs-layout: $default-tabs-layout,
+ $tabs-active-color: $default-tabs-active-color,
+ $tabs-accent-color: $default-tabs-accent-color,
+ $tabs-inactive-color: $default-tabs-inactive-color,
+ $tabs-border: $default-tabs-border,
+ $tabs-size: $default-tabs-size,
+ $tabs-transition: $default-tabs-transition, //transitions on colors
+ $tabs-accent-border: $default-tabs-accent-border, //Current tab border accent
+ $tabs-text-align: $default-tabs-text-align,
+ $tabs-flex: $default-tabs-flex, // Full-width tabs
+ $tabs-border-radius: $default-tabs-border-radius, 
+ $tabs-indicator: $default-tabs-indicator, //Current tab arrow
+ $tabs-responsive-behavior: $default-tabs-responsive-behavior
+  ) {
+
+  @include tabs-base();
+  @include tabs-style(
+   // $tabs-max-width: $tabs-max-width,
+   $tabs-layout: $tabs-layout,
+   $tabs-active-color: $tabs-active-color,
+   $tabs-accent-color: $tabs-accent-color,
+   $tabs-inactive-color: $tabs-inactive-color,
+   $tabs-border: $tabs-border,
+   $tabs-size: $tabs-size,
+   $tabs-transition: $tabs-transition, //transitions on colors
+   $tabs-accent-border: $tabs-accent-border, //Current tab border accent
+   $tabs-text-align: $tabs-text-align,
+   $tabs-flex: $tabs-flex, // Full-width tabs
+   $tabs-border-radius: $tabs-border-radius, 
+   $tabs-indicator: $tabs-indicator, //Current tab arrow
+   $tabs-responsive-behavior: $tabs-responsive-behavior
+  );
+
+}
+

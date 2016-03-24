@@ -1,0 +1,465 @@
+
+$default-form-accent-color: $base;
+$default-form-field-size: 3.2em;
+$default-form-field-style: normal; // normal, 
+$default-form-field-placeholder-color: inherit;
+$default-form-field-color: $base;
+$default-form-field-radius: $radius;
+
+$default-form-error-color: $danger;
+$default-form-warning-color: $warning;
+$default-form-success-color: $success;
+$default-form-info-color: $info;
+
+$default-form-pattern: normal;
+$default-form-options-display: block; // block or inline
+
+
+@mixin form-base() {
+
+	width: 100%;
+
+	.form-group { 
+		width: 100%;
+		clear: both;
+		display: inline-block;
+	}
+
+	fieldset {
+		legend { 
+			text-transform: uppercase;
+		}
+	}
+
+	label {
+		margin-bottom: 0.5em;
+		display: block;
+		margin-bottom: 0;
+	}
+
+	input:not([type="submit"]), select, textarea {
+		display: block;
+	    box-shadow: none;
+	    transition: all .25s ease-in-out;  
+	    text-overflow: ellipsis;
+	    padding: 0.5em;
+	    width: 100%;
+        line-height: 1.4;
+        box-sizing: border-box;
+    	background-color: $inverse;
+    	max-width: 100%;
+    	outline: none;
+    	margin-top: 0.5em;
+
+	    &:focus {
+		    box-shadow: inset 0 0 5px hsla(221, 95%, 45%, .75);
+		    outline: 0 none;
+	    }
+
+		.masked & {
+			letter-spacing: 0.06em; 
+		} 
+	}
+
+	textarea {
+		width: 100%;
+		min-height: 6em;
+		padding: 0.5em;
+		height: auto;
+	}
+
+	input[type="number"] {
+		line-height: 100%;
+	}
+
+	.input-group { 
+		@include span(12); 
+		position: relative;
+		margin: 1em 0;
+
+		&.large {
+			input:not([type="submit"]), select { 
+				width: 500px; 
+			}
+		}
+		&.medium {
+			input:not([type="submit"]), select {
+				width: 300px; 
+			}
+		}
+		&.small {
+			input:not([type="submit"]), select {
+				width: 100px;
+			}
+		}
+
+		p.validation-message {
+			font-size: 0.85em;
+			margin: 0;
+		}
+
+	}
+
+	.checkboxes, .radio-buttons {
+		vertical-align: middle;
+		clear: both;
+		display: inline-block;
+		width: 100%;
+
+		> label {
+			display: block;
+			width: 100%;
+			margin-bottom: 0;
+			line-height: 1.3em;
+
+		}
+		.options {
+			box-sizing: border-box;
+
+			.option	{
+				display: block;
+				margin: 0.5em 0;
+				label {
+					display: inline;
+					vertical-align: baseline;
+					line-height: 1em;
+				}
+				input {
+					height: 1em;
+				}
+			}
+		}
+	}
+
+	.server-messages {
+		padding: 0.5em 1em;
+		border-width: 1px;
+		border-style: solid;
+		font-size: 0.75em;
+		p { margin: 0.5em 0; }
+	}
+	
+	.help-text { 
+		font-size: 0.85em; 
+		// opacity: 0.7;
+		margin: 0.1em 0 0; 
+	}
+}
+
+
+@mixin form-style(
+	$form-pattern: $default-form-pattern,
+	$form-accent-color: $default-form-accent-color,
+
+	$form-error-color: $default-form-error-color,
+	$form-warning-color: $default-form-warning-color,
+	$form-success-color: $default-form-success-color,
+	$form-info-color: $default-form-info-color,
+
+	$form-field-color: $form-accent-color,
+	$form-label-color: lighten($form-field-color, 10%),
+	$form-field-border-color: lighten($form-accent-color, 30%),
+	$form-field-border: 1px solid $form-field-border-color,
+	$form-field-size: $default-form-field-size,	
+	$form-field-placeholder-color: $default-form-field-placeholder-color,
+	$form-field-style: $default-form-field-style,
+	$form-field-radius: $default-form-field-radius,
+	$form-help-color: lighten($form-label-color, 15%),
+
+	$form-options-display: $default-form-options-display,
+	$form-fieldset-outline: 1px solid lighten($form-field-border-color, 25%)
+
+) {
+
+	$form-actions: (
+		info: $form-info-color,
+		success: $form-success-color,
+		warning: $form-warning-color,
+		error: $form-error-color
+	);
+
+	@if $form-fieldset-outline != false {
+		fieldset {
+			margin: 1em 0;
+			border: $form-fieldset-outline;
+			padding: 0.5em 1em;
+		}
+	}
+
+	label {
+		color: $form-label-color;
+	}
+
+	input:not([type="submit"]), select, textarea {
+		height: $form-field-size;
+		color: $form-field-color;
+		border-radius: $form-field-radius;
+		border: $form-field-border;
+
+		&:focus { 
+		 	box-shadow: 0 0 2px $form-info-color inset;
+		 	border-color: $form-info-color;
+		}
+	}
+
+	input[type="color"] {
+		max-width: $form-field-size;
+	}
+
+	textarea {
+		border: $form-field-border;
+	}
+
+	.input-group {
+		font-size: $form-field-size * 0.33;
+
+		@each $action, $color in $form-actions {
+			&.#{$action} {
+				input:not([type="submit"]), select, textarea {
+					border-color: $color;
+				}
+				p.message {
+					color: $color;
+				}
+				p.#{$action} {
+					color: $color;
+				}
+			}
+		}
+
+		
+	}
+	.checkboxes, .radio-buttons {
+		label {
+			color: $form-field-color;
+		}
+		.option	{
+			@if $form-options-display == inline {
+				//float: left;
+				width: auto;
+				display: inline-block;
+				margin-right: 1.5em;
+				label {
+					display: inline; 
+
+				}
+				input {
+					display: inline;
+					width: auto;
+				}
+			}
+			@else {
+				display: block;
+				position: relative;
+				margin: 1em 0;
+				label {
+					display: inline-block;
+					padding: 0 1.4em;
+					font-size: 0.9em;
+				}
+				input { 
+					display: inline-block;
+					width: auto;
+					position: absolute;
+					top: -0.45em;
+				}
+			}
+		}
+		
+	}
+	.help-text { 
+		color: $form-help-color;
+	}
+
+	.server-messages {
+		border-radius: $form-field-radius;
+		
+		&.error {
+			background-color: lighten($form-error-color, 35%);
+			border-color: $form-error-color;
+			&, p, h1, h2, h3, h4, h5, h6 { color: darken($form-error-color, 15%); }
+			
+		}
+	}
+
+	@if $form-pattern != normal {
+		.input-group {
+			&.field {
+				&.with-help-text {
+					margin-bottom: 2em;
+				}
+				.help-text {
+					position: absolute;
+					bottom: -1.5em;
+					left: 0.2em;
+				}
+			}
+			
+			&.with-validation-message {
+				margin-top: 2em;
+			}
+			p.validation-message {
+				position: absolute;
+				top: -1.5em;
+				left: 0;
+			}
+		}
+	}
+
+	// Inline Form Pattern
+	// ========================================
+	@if $form-pattern == inline {
+
+		.input-group {
+
+			&.field{
+				position: relative;
+				
+				input, select {
+					margin-top: 0;
+				}
+				label {
+					position: absolute;
+					top: ($form-field-size*0.5) - 0.4em;
+					left: 0.5em;
+					width: auto;
+					display: inline-block;
+
+					.csstransforms & {
+						top: 50%;
+						transform: translateY(-50%);
+					}
+
+					&:after { 
+						content: ":"; 
+					}
+				}
+			}
+
+			&.select {
+				label {
+					left: 0;
+				}
+			}
+
+			&.color {
+				label {
+					left: 0;
+				}
+				input {
+					width: 100%;
+				}
+			}
+
+			&.radio-buttons, &.checkboxes {
+				width: 100%;
+				position: relative;
+
+				&.short {
+					> label {
+						display: inline-block;
+						width: auto;
+						height: $form-field-size * 0.75;
+						line-height: $form-field-size * 0.75;
+					}
+					.options {
+						width: 100%;
+						position: relative;
+						top: -$form-field-size * 0.75;
+					}
+				}
+			}
+			
+		}
+
+	}
+
+	// Float Form Pattern
+	// ========================================
+	@if $form-pattern == float {
+
+		.input-group {
+			position: relative;
+
+			&.field, &.textarea {
+				input {
+					color: $form-label-color;
+				}
+				label {
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					opacity: 0;
+					transition: all 0.35s ease-in-out;
+					left: 0.65em;
+				}
+			}
+			&.textarea { 
+				label { 
+					-webkit-backface-visibility: hidden;
+					top: 1em;
+					transform: translateY(0);
+				}
+				textarea { 
+					color: $form-label-color;
+					line-height: 1.2em; 
+
+				}
+			}
+		
+			&.select {
+				.psuedo-select {
+					padding: 1em 0.35em 1em 0.1em;
+					border: $form-field-border;
+					border-radius: $form-field-radius;
+					display: inline-block;
+					width: auto;
+					max-width: 100%;
+					height: $form-field-size;
+					margin-top: 0.5em;
+				}
+				select {
+					font-size: $base-font-size;
+					box-sizing: border-box;
+					background-color: transparent;
+					box-shadow: none;
+					border: none;
+					padding-left: 0.5em;
+					max-width: 100%;
+					margin-top: 0;
+					height: auto;
+				}
+
+				.help-text { margin-top: 0.1em; }
+				
+				&.focused .psuedo-select { 
+					box-shadow: 0 0 2px $form-info-color inset;
+					border-color: $form-info-color; 
+				}
+			}
+
+			&.focused, &.populated { 
+				label { 
+					opacity: 1; 
+					font-size: 0.8em;
+					top: 0.75em; 
+					color: $form-label-color;
+					transition: all 0.35s ease-in-out; 
+					transform: translateY(0);
+				}
+				&.field input, &.textarea textarea { 
+					padding-top: 1em; 
+					color: $form-field-color;
+					transition: 0.2s ease-in-out;
+				}
+			}
+			&.radio-buttons, &.checkboxes {
+				label { display: block; }
+			}
+
+		}
+	}
+}
+		
+
+

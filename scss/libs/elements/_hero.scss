@@ -1,0 +1,415 @@
+//======================================================
+// Hero Component
+//======================================================
+
+$default-hero-content-style: float; //overlay colorblock
+$default-hero-content-position: (middle, center);
+$default-hero-content-bg-color: rgba(0,0,0,0.8); //Set to transparent or rgba(0,0,0,0) for no overlay
+$default-hero-content-color: rgba(255,255,255,1);
+$default-hero-content-radius: $radius;
+$default-hero-content-opacity: 1;
+$default-hero-content-textalign: inherit;
+
+$default-hero-header-font-size: 2em;
+$default-hero-text-font-size: 1em;
+$default-hero-header-font-weight: inherit;
+
+$default-hero-text-font-weight: inherit;
+
+$default-hero-caption-font-size: .9em;
+$default-hero-caption-font-weight: inherit;
+$default-hero-caption-position: (bottom: 0, right: 0);
+$default-hero-caption-color: $inverse;
+$default-hero-caption-bg-color: rgba(0,0,0,0.5);
+
+$default-hero-image-tint: null; // null or color
+$default-hero-image-size: full; // full or fit
+
+$default-hero-header-delineator: true;
+
+$default-hero-breakpoints: ($bp-1, $bp-2, $bp-3, $bp-4, $bp-5, $bp-6, $bp-7);
+
+@mixin hero-base() {
+	width: 100%;
+	height: 70%;
+	min-height: 300px;
+	position: relative;
+
+	.cssvhunit & {
+		height: 70vh;
+	}
+
+	// Hero Image
+	.background {
+		position: relative;
+		background: 50% 50% no-repeat;
+		background-size: cover;
+		background-position:fixed;
+		width: 100%;
+		height: 100%;
+	}
+
+		
+	//Styling for content inside of hero-content box
+
+	h1, h2, h3, h4, h5, h6, p, b, ul, ol { color: inherit; }
+
+
+	h1, h2, h3, h4, h5, h6 {
+		margin: 0;
+		max-width: 900px;
+		padding: 0;
+
+		&:after{
+			content: "";
+			display: block;
+			height: 3px;
+			background: $swatch-3;
+			width: 2em;
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
+	}
+
+	p {
+		margin-top: 0;
+		margin-bottom: .5em;
+		line-height: 1.75em;
+	}
+	[class*="cta-"] {
+		margin-right: 1%;
+		margin-top: .5em;
+	}
+	.cta-primary {
+		@extend .btn-primary;
+	}
+	.cta-secondary {
+		@extend .btn-secondary;
+	}
+
+
+	> div {
+		.hero-content{
+			box-sizing: border-box;
+			z-index:3;
+			min-height: 300px;
+		}
+		.caption {
+			padding: 1em;
+			display: block;
+			position: absolute;
+			z-index: 3;
+		}
+	}
+}
+
+
+
+@mixin hero-style(
+	$hero-content-style: $default-hero-content-style,
+	$hero-content-position: $default-hero-content-position,
+	$hero-content-bg-color: $default-hero-content-bg-color,
+	$hero-content-color: color-contrast($hero-content-bg-color, $base, $inverse),
+	$hero-content-radius: $default-hero-content-radius,
+	$hero-content-opacity: $default-hero-content-opacity,
+	$hero-content-textalign: $default-hero-content-textalign,
+
+	$hero-header-font-size: $default-hero-header-font-size,
+	$hero-text-font-size: $default-hero-text-font-size,
+
+	$hero-header-delineator: $default-hero-header-delineator,
+
+	$hero-caption-font-size: $default-hero-caption-font-size,
+	$hero-caption-position: $default-hero-caption-position,
+	$hero-caption-bg-color: $default-hero-caption-bg-color,
+	$hero-caption-color: color-contrast($hero-caption-bg-color, $base, $inverse),
+	$hero-caption-radius: $hero-content-radius,
+
+	$hero-image-tint: $default-hero-image-tint,
+	$hero-image-size: $default-hero-image-size,
+
+	$hero-breakpoints: $default-hero-breakpoints
+
+	){
+
+	$hero-content-hposition: nth(nth($hero-content-position, 2), 1);
+	$hero-content-vposition: nth(nth($hero-content-position, 1), 1);
+
+	$hero-caption-hposition: nth(nth($hero-caption-position, 2), 1);
+	$hero-caption-vposition: nth(nth($hero-caption-position, 1), 1);
+
+
+	@if $hero-image-tint != false {
+		.background:after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: block;
+			content: "";
+			background-color: $hero-image-tint;
+			width: 100%;
+			height: 100%;
+		}
+	}
+		
+	//Styling for content inside of hero-content box
+	h1, h2, h3, h4, h5, h6, p {
+		text-align: $hero-content-textalign;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-size: $hero-header-font-size;
+
+		@include breakpoint(nth($hero-breakpoints, 1)) {
+			font-size: $hero-header-font-size*0.825;
+		}
+
+		@include breakpoint(nth($hero-breakpoints, 3)) {
+			font-size: $hero-header-font-size*0.625;
+		}
+	}
+
+	p {
+		font-size: $hero-text-font-size;
+
+		@include breakpoint(nth($hero-breakpoints, 1)) {
+			line-height: 1.5em;
+		}
+
+		@include breakpoint(nth($hero-breakpoints, 3)) {
+			font-size: $hero-text-font-size*0.85;
+		}
+	}
+	[class*="cta-"] {
+		@include breakpoint(nth($hero-breakpoints, 2)) {
+			margin-right: .5%;
+		}
+
+	}
+
+
+	> div {
+		background: $hero-content-bg-color;
+	}
+	.hero-content{
+		background-color: $hero-content-bg-color;	
+		color: $hero-content-color;
+		@include legacy-ie($ver: 9){ background-color: $hero-content-bg-color; }
+
+	}
+	.caption {
+		font-size: $hero-caption-font-size;
+		color: $hero-caption-color;
+		background-color: $hero-caption-bg-color;
+		border-radius: $hero-caption-radius;
+
+		@each $position, $spacing in $hero-caption-position {
+			@if $position != middle and $position != center {
+				#{$position}: $spacing;
+			}
+		}
+		
+
+		@include legacy-ie($ver: 9){ 
+			background-color: $grey-80;
+		}
+
+		// @include breakpoint(nth($hero-breakpoints, 4)) {
+		// 	position: relative;
+		// 	border-radius: 0 0 0 0;
+		// 	margin-left: 0em;
+		// }
+
+	}
+	@if $hero-content-style == float {
+		display: table;
+
+		> div {
+			display: table-cell;
+			vertical-align: $hero-content-vposition;
+			text-align: $hero-content-hposition;
+		}
+		.background {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.hero-content {
+			display: inline-block;
+			padding: 2em;
+			min-width: 300px;
+			max-width: 800px;
+			border-radius: $hero-content-radius;
+			position: relative;
+
+
+			@each $position, $spacing in $hero-content-position {
+				@if $position != middle and $position != center {
+					margin-#{$position}: $spacing;
+				}
+			}
+
+			@include breakpoint($mobile-bp) {
+				width: calc(100% - #{$mobile-padding*2});
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				&:after {
+					margin-left: auto;
+					margin-right: auto;
+
+					@if $hero-content-hposition != center {
+						margin-#{$hero-content-hposition}: 0;
+					}
+				}
+			}
+
+
+		}
+	}
+
+
+	@if $hero-content-style == block {
+		.hero-content {
+			margin: 0;
+			top: 0;
+			padding: 2.25em;
+			width: 100%;
+
+			@include breakpoint(nth($hero-breakpoints, 2)) {
+				padding: 1.5em;
+			}
+
+			@include breakpoint($mobile-bp, min) {
+				width: 40%;
+				left: inherit;
+				right: inherit;
+				position: absolute;
+				#{$hero-content-hposition}: 0;
+				height: 100%;
+			}
+			@include breakpoint($mobile-bp, max) {
+
+			}
+		}
+
+		@include breakpoint($mobile-bp, max) {
+			.caption {
+				position: relative;
+			}
+		}
+		
+		@if $hero-image-size == fit {
+			> div {
+				background-color: $hero-content-bg-color;
+
+				.hero-content { 
+					background: none;
+					background-color: transparent;
+
+					@include breakpoint($mobile-bp, max) {
+						position: relative;
+						top: 0;
+						min-height: 0;
+
+					}
+				}
+				
+				.background { 
+					@include breakpoint($mobile-bp, max) {
+						height: 45%;
+						position: relative;
+					}
+					@include breakpoint($mobile-bp, min) {
+						width: 60%;
+						margin-#{$hero-content-hposition}: 40%; 
+					}
+				}
+
+				@include breakpoint($mobile-bp, max) {
+					.caption {
+						position: relative;
+					}
+				}
+			}
+				
+		} @else {
+			@include breakpoint($mobile-bp, max) {
+				height: auto;
+				.cssvhunit & { height: auto; }
+				.hero-content { 
+					height: auto; 
+					position: relative;
+				} 
+				.background {
+					position: absolute;
+					top: 0;
+					left: 0;
+
+				}
+			}
+		}
+	}	
+}
+
+@mixin hero(
+	$hero-content-style: $default-hero-content-style,
+	$hero-content-position: $default-hero-content-position,
+	$hero-content-bg-color: $default-hero-content-bg-color,
+	$hero-content-color: color-contrast($hero-content-bg-color, $base, $inverse),
+	$hero-content-radius: $default-hero-content-radius,
+	$hero-content-opacity: $default-hero-content-opacity,
+	$hero-content-textalign: $default-hero-content-textalign,
+
+	$hero-header-font-size: $default-hero-header-font-size,
+	$hero-text-font-size: $default-hero-text-font-size,
+
+	$hero-header-delineator: $default-hero-header-delineator,
+
+	$hero-caption-font-size: $default-hero-caption-font-size,
+	$hero-caption-position: $default-hero-caption-position,
+	$hero-caption-color: $default-hero-caption-color,
+	$hero-caption-bg-color: $default-hero-caption-bg-color,
+	$hero-caption-radius: $hero-content-radius,
+
+	$hero-image-tint: $default-hero-image-tint,
+	$hero-image-size: $default-hero-image-size,
+
+	$hero-breakpoints: $default-hero-breakpoints
+
+	){
+
+	@include hero-base;
+	@include hero-style(
+		$hero-content-style: $hero-content-style,
+		$hero-content-position: $hero-content-position,
+		$hero-content-bg-color: $hero-content-bg-color,
+		$hero-content-color: $hero-content-color,
+		$hero-content-radius: $hero-content-radius,
+		$hero-content-opacity: $hero-content-opacity,
+		$hero-content-textalign: $hero-content-textalign,
+
+		$hero-header-font-size: $hero-header-font-size,
+		$hero-text-font-size: $hero-text-font-size,
+
+		$hero-header-delineator: $hero-header-delineator,
+
+		$hero-caption-font-size: $hero-caption-font-size,
+		$hero-caption-position: $hero-caption-position,
+		$hero-caption-color: $hero-caption-color,
+		$hero-caption-bg-color: $hero-caption-bg-color,
+		$hero-caption-radius: $hero-content-radius,
+
+		$hero-image-tint: $hero-image-tint,
+		$hero-image-size: $hero-image-size,
+
+		$hero-breakpoints: $hero-breakpoints
+	);
+}
+
+
+
+
+
+

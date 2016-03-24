@@ -1,0 +1,130 @@
+//
+// Inputs
+// --------------------------------------------------
+
+input:not([type="submit"]), textarea {
+  background-color: $inverse;
+  border: 1px solid $grey-10;
+  outline: none;
+  &[disabled] { color: lighten($base, 25%); }
+}
+
+@mixin placeholder ($size, $height, $color, $padding) {
+  &:-moz-placeholder {
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+    padding: $padding;
+  }
+  &::-moz-placeholder {
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+    padding: $padding;
+  }
+  &::-ms-input-placeholder {
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+    padding: $padding;
+  }
+  &::-webkit-input-placeholder {
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+    padding: $padding;
+  }
+  &.placeholder {
+    font-size: $size;
+    line-height: $height;
+    color: $color;
+    padding: $padding;
+  }
+}
+
+@mixin input-states($color) {
+  border-color: $color;
+  color: $color;
+  box-shadow: none;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+@mixin input (
+    $input-border: 2px solid #eaeaea,
+    $input-border-focused: 2px solid $accent,
+    $input-text-size: $base-font-size,
+    $input-line-height: 100%,
+    $input-text-color: #000,
+    $input-width: 100%,
+    $input-padding: 0 0 0 6px,
+    $input-height: 2.25em,
+    $input-radius: $radius,
+    $input-placeholder-color: #444,
+    $input-placeholder-height: 100%, //line-height
+    $input-placeholder-padding: 0 0 0 0,
+    $input-placeholder-text-size: $base-font-size,
+    $input-error: #e74c3c, //red
+    $input-success: #0F9E4C, //green
+    $input-warning: #FDB10E, //orangish-yellow
+    $input-info: #3498db //blue
+  )
+{    
+  box-sizing: border-box;
+  border-radius: $input-radius;
+  box-shadow: none;
+  @include placeholder($input-placeholder-text-size, $input-placeholder-color, $input-placeholder-height, $input-placeholder-padding);
+  transition: all .25s ease-in-out;  
+  border: $input-border;
+  color: $input-text-color;
+  font-family: $base-font-family;
+  font-size: $input-text-size;
+  line-height: $input-line-height;
+  text-overflow: ellipsis;
+  padding: $input-padding;
+  height: $input-height;
+  width: $input-width;
+    
+  // Alternate state
+  // --------------------------------------------------
+  &:focus {
+    box-shadow: inset 0 0 5px hsla(221, 95%, 45%, .75);
+    border: $input-border-focused;
+    outline: 0 none;
+  }
+
+  // Alternate Colors
+  // --------------------------------------------------
+  &.error    { @include input-states($input-error) }
+  &.success  { @include input-states($input-success) }
+  &.warning  { @include input-states($input-warning) }
+  &.info     { @include input-states($input-info) }
+}
+
+
+// Disabled state
+input[disabled],
+input[readonly],
+textarea[disabled],
+textarea[readonly] {
+  background-color: $grey-20;
+  border-color: $grey-20;
+  color: $grey-20;
+  cursor: default;
+}
+
+// Textarea
+textarea {
+  height: auto;
+  font-size: $base-font-size * 1.071; /* 15px */
+  line-height: 24px;
+  padding: 5px 11px;
+  text-indent: 0;
+} 
+
+textarea[class*="span"] {
+  width: 100% !important;
+  box-sizing: border-box;
+}

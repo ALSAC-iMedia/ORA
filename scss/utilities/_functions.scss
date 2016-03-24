@@ -1,0 +1,50 @@
+// Utility Functions
+// ========================================
+
+// Utility functions are helper functions that are not dependent on any framework-specific variables or mixins. 
+// Think of them as functions that SASS is missing by default 
+
+
+//Combine more than two maps
+@function map-collect($maps...) {
+  $collection: ();
+  @each $map in $maps {
+    $collection: map-merge($collection, $map);
+  }
+  @return $collection;
+}
+
+//Prepend item to list
+@function prepend($list,$value,$separator:auto){
+    $newlist:list($value);
+    @for $i from 1 through length($list){$newlist:append($newlist,nth($list,$i),$separator);};
+    @return $newlist;
+}
+
+// // Calculete brightness of a given color.
+@function brightness($accent-color) {
+  @return ((red($accent-color) * .299) + (green($accent-color) * .587) + (blue($accent-color) * .114)) / 255 * 100%;
+}
+
+// // Compares contrast of a given color to the light/dark arguments and returns whichever is most "contrasty"
+@function color-contrast($accent-color, $dark: $base, $light: $inverse) {
+  @if $accent-color == null {
+    @return null;
+  }
+  @else {
+    $color-brightness: brightness($accent-color);  
+    $light-text-brightness: brightness($light);
+    $dark-text-brightness: brightness($dark);
+    
+    @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);  
+  }
+}
+
+//Accent coloration mixin
+@mixin accent-colors($accents...) {
+  @each $accent in $accents {
+    .#{$accent} &, [class*="accent-"] .#{$accent} &, [class*="accent-"] [class*="accent-"] .#{$accent} & {
+      @content;
+    }
+  }
+}

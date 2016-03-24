@@ -1,0 +1,68 @@
+//----------------------------------------------
+// Ribbon Mixin
+//----------------------------------------------
+
+// Ribbon width: Standard, Full
+
+@mixin wrapper(
+	$wrapper-breakpoint: 800px,
+	$wrapper-padding: 1em,
+	$full-width-wrapper-padding: 3em 1em 2.75em
+	){
+
+	position: relative;
+
+  	[class*="accent-"] {
+		padding: $wrapper-padding;
+  	}
+	
+	&.full-width{
+
+			.cq-wcm-edit & {
+				margin-left: 0;
+				margin-right: 0;
+			}
+
+		  	@include breakpoint($wrapper-breakpoint) { 
+		    	margin-left: -1em;
+		    	margin-right: -1em;
+		  	};
+
+		  	> [class*="accent-"]{
+  				padding: $full-width-wrapper-padding;
+
+				@include breakpoint($wrapper-breakpoint) { 
+				    padding: 1rem;
+			    }; 
+		  	}
+	} 
+		  	
+  	> [class*="accent-"] {
+		&.has-image {
+			background: transparent;
+			z-index: 1;
+		}
+  	}
+
+	.wrapper-img {
+		background-size: cover;
+		background-position: 50% 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
+
+		&.parallax {
+			background-attachment: fixed;
+		}
+
+		.img-overlay {
+			height: 100%;
+			width: 100%;
+			padding: 0;
+		}
+	}
+	
+}

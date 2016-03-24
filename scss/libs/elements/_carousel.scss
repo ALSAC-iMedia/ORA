@@ -1,0 +1,393 @@
+ $default-carousel-fade                     : false;
+ $default-carousel-scale                    : null; // factor by which to scale
+
+ $default-carousel-nav-color                : null;
+ $default-carousel-nav-bgcolor              : $secondary;
+ $default-carousel-prev-icon                : $caret-left;
+ $default-carousel-next-icon                : $caret-right;
+ $default-carousel-nav-size                 : 1em;
+ $default-carousel-nav-text                 : false; //show or hide Next + Previous text and only show nav icon
+ $default-carousel-nav-radius               : $radius;
+
+ $default-carousel-opacity-not-active       : 0.75;
+
+ $default-carousel-figure-color             : $inverse;
+ $default-carousel-figcaption-layout        : below;
+ $default-carousel-figcaption-display       : always;
+ $default-carousel-figcaption-color         : null;
+ $default-carousel-figcaption-background    : rgba(255,255,255,0);
+
+ $default-carousel-bp                       : 700px; // where only 1 is showed regardless of selected show option
+
+@mixin carousel-base() {
+
+    .carousel-slider { 
+        padding-left: 0;
+        list-style: none;
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+        -webkit-touch-callout: none;
+        user-select: none;
+        touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .carousel-list {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        margin: 0;
+        padding: 0;
+
+        &:focus { outline: none; }
+
+        &.dragging {
+            cursor: pointer;
+            cursor: hand;
+        }
+    }
+    .carousel-slider .carousel-track {
+        transform: translate3d(0, 0, 0);
+        // padding-bottom: 1em; //needed to handle large captions from getting clipped
+    }
+
+    .carousel-track {
+        position: relative;
+        left: 0;
+        top: 0;
+        display: block;
+
+        &:before,
+        &:after {
+            content: "";
+            display: table;
+        }
+
+        &:after { clear: both; }
+
+    }
+    .carousel-slide {
+        float: left;
+        min-height: 1px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        @extend figure;
+        transform: scale(1,1);
+        transition: all 0.35s ease-in-out;
+
+        img { display: block; }
+
+        &.dragging img { pointer-events: none; }
+
+        .carousel-vertical & {
+            display: block;
+            height: auto;
+            border: 1px solid transparent;
+        }
+
+        a {
+            cursor: pointer;
+        }
+    }
+
+    [dir="rtl"] .carousel-slide { 
+      float: right; 
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        position: absolute;
+        display: block;
+        line-height: 100%;
+        cursor: pointer;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 1em;
+        border: none;
+        outline: none;
+        transition: all 0.25s ease; 
+        vertical-align: middle;
+        text-align: center; 
+
+        &:before {
+          transition: all 0.25s ease;  
+          @include icon-defaults;
+        }
+    }
+  
+    .carousel-prev {
+        left: 0;
+    }
+    .carousel-next {
+        right: 0;
+    }
+
+    [dir="rtl"] .carousel-prev  {
+        left:  auto;
+        right: -25px;
+    }
+    [dir="rtl"] .carousel-next {
+        left:  -25px;
+        right: auto;
+    }
+
+    figure {
+        padding: 0;
+        margin: .5em;
+        position: relative;
+    }
+
+    img{
+        width: 100%;
+        // transition: all 0.5s ease;
+    }
+
+    picture {
+        box-sizing: border-box;
+        padding-top: 0;
+        padding-right: 0;
+        padding-left: 0;
+        margin-bottom: 0;
+        display: block;
+    }
+
+    figcaption {
+        bottom: 0;
+        padding: 0.75em 0;
+        z-index: 20;
+        font-style: normal;
+        transition: all 0.5s ease;
+        box-sizing: border-box;
+        font-size: 0.75em;
+
+        @include breakpoint($bp-2) {
+          font-size: 0.65em;
+        }
+
+        @include breakpoint($bp-3) {
+          font-size: 0.6em;
+        }
+
+        @include breakpoint($mobile-bp) {
+          font-size: 0.75em;
+        }
+
+        @include breakpoint($bp-5) {
+          font-size: 0.6em;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0.2em 0;
+        }
+    }
+
+    &:before{ display: none; }
+
+    ul.carousel-wrapper{
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.carousel-full-wrapper{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}
+
+@mixin carousel-style(
+      $carousel-fade                    : $default-carousel-fade,
+      $carousel-scale                   : $default-carousel-scale,
+
+      $carousel-nav-color               : $default-carousel-nav-color,
+      $carousel-nav-bgcolor             : $default-carousel-nav-bgcolor,
+      $carousel-nav-text                : $default-carousel-nav-text,
+      $carousel-prev-icon               : $default-carousel-prev-icon,
+      $carousel-next-icon               : $default-carousel-next-icon,
+      $carousel-nav-size                : $default-carousel-nav-size,
+      $carousel-nav-radius              : $default-carousel-nav-radius,
+
+      $carousel-figure-color            : $default-carousel-figure-color,
+      $carousel-figure-hover-color      : darken($carousel-figure-color, 10%),
+
+      $carousel-opacity-not-active      : $default-carousel-opacity-not-active,
+
+      $carousel-figcaption-layout       : $default-carousel-figcaption-layout,
+      $carousel-figcaption-display      : $default-carousel-figcaption-display, 
+      $carousel-figcaption-color        : $default-carousel-figcaption-color,
+      $carousel-figcaption-background   : $default-carousel-figcaption-background,
+
+      $carousel-bp                      : $default-carousel-bp 
+      
+    ) {
+    
+
+    //Navigation buttons
+    .carousel-prev,
+    .carousel-next {
+        font-size: $carousel-nav-size;
+        color: $carousel-nav-color;
+        background-color: $carousel-nav-bgcolor;
+
+        &:hover {
+          background-color: lighten($carousel-nav-bgcolor, 10%);
+        }
+
+        @if $carousel-nav-color {
+          color: $carousel-nav-color;
+        } @else {
+          color: color-contrast($carousel-nav-bgcolor, $link-color, $inverse);
+        }
+
+        @if $carousel-nav-text {
+          box-sizing: content-box;
+        } @else {
+          overflow: hidden;
+          width: 2.5em;
+          padding-left: 0.75em;
+          padding-right: 0.75em;
+          &:before { 
+           margin-right: 10em;
+          }
+        }
+    }
+   
+    .carousel-prev {
+        border-radius: 0 $carousel-nav-radius $carousel-nav-radius 0;
+        &:before { 
+          content: $carousel-prev-icon; 
+        }
+        &[dir="rtl"]:before { 
+          content: $carousel-next-icon; 
+        }
+    }
+    .carousel-next {
+        border-radius: $carousel-nav-radius 0 0 $carousel-nav-radius;
+        &:before { 
+          content: $carousel-next-icon; 
+        }
+        &[dir="rtl"]:before { 
+          content: $carousel-prev-icon; 
+        }
+    }
+
+    // Slides
+    .carousel-slide {
+        @if $carousel-figure-color {
+          padding: 1em;
+          cursor: pointer;
+        }
+
+        @if $carousel-fade {
+          // transition: all 0.5s ease-in-out;
+          opacity: $carousel-opacity-not-active;
+
+          &.carousel-center { 
+            opacity: 1; 
+          } 
+        }
+
+        &:hover { 
+          background-color: $carousel-figure-hover-color;
+        }
+        @include breakpoint($carousel-bp) {
+            background-color: $carousel-figure-hover-color;
+        }
+    }
+
+    @if $carousel-scale {
+        .carousel-slide {
+            transform: scale(1 - $carousel-scale, 1 - $carousel-scale);
+        }
+        .carousel-center {
+            transform: scale(1, 1);
+            z-index: 99;
+        }
+    }
+
+    // Image captioning & description
+    figcaption {
+        background: $carousel-figcaption-background;
+
+        @if $carousel-figcaption-layout == below {
+           border-bottom-left-radius: .5em;
+           border-bottom-right-radius: .5em;
+        } 
+        @if $carousel-figcaption-layout == above {
+           top: 0;
+           border-top-left-radius: .5em;
+           border-top-right-radius: .5em;
+        } 
+        @if $carousel-figcaption-layout == inside {
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+   
+      &, h1, h2, h3, h4, h5, h6, p {
+        @if $carousel-figcaption-color {
+          color: $carousel-figcaption-color;
+        } @elseif $carousel-figcaption-background {
+          color: color-contrast($carousel-figcaption-background, $base, $inverse);
+        }
+      }
+
+
+
+}
+
+@mixin carousel(
+   $carousel-fade                    : $default-carousel-fade,
+   $carousel-scale                   : $default-carousel-scale,
+
+   $carousel-nav-text                : $default-carousel-nav-text,
+   $carousel-nav-color               : $default-carousel-nav-color,
+   $carousel-nav-bgcolor             : $default-carousel-nav-bgcolor,
+   $carousel-prev-icon               : $default-carousel-prev-icon,
+   $carousel-next-icon               : $default-carousel-next-icon,
+   $carousel-nav-size                : $default-carousel-nav-size,
+   $carousel-nav-radius              : $default-carousel-nav-radius,
+
+   $carousel-opacity-not-active      : $default-carousel-opacity-not-active,
+   
+   $carousel-figure-color            : $default-carousel-figure-color,
+   $carousel-figure-hover-color      : darken($carousel-figure-color, 10%),
+   
+   $carousel-figcaption-layout       : $default-carousel-figcaption-layout,
+   $carousel-figcaption-display      : $default-carousel-figcaption-display, 
+   $carousel-figcaption-color        : $default-carousel-figcaption-color,
+   $carousel-figcaption-background   : $default-carousel-figcaption-background,
+
+   $carousel-bp                      : $default-carousel-bp
+
+    ) {
+    @include carousel-base();
+    @include carousel-style(
+          $carousel-fade                    : $carousel-fade,
+          $carousel-scale                   : $carousel-scale,
+
+          $carousel-nav-text                : $carousel-nav-text,
+          $carousel-nav-color               : $carousel-nav-color,
+          $carousel-nav-bgcolor             : $carousel-nav-bgcolor,
+          $carousel-prev-icon               : $carousel-prev-icon,
+          $carousel-next-icon               : $carousel-next-icon,
+          $carousel-nav-size                : $carousel-nav-size,
+          $carousel-nav-radius              : $carousel-nav-radius,
+
+          $carousel-opacity-not-active      : $carousel-opacity-not-active, 
+
+          $carousel-figure-color            : $carousel-figure-color,
+          $carousel-figure-hover-color      : $carousel-figure-hover-color,
+
+          $carousel-figcaption-layout       : $carousel-figcaption-layout,
+          $carousel-figcaption-display      : $carousel-figcaption-display, 
+          $carousel-figcaption-color        : $carousel-figcaption-color,
+          $carousel-figcaption-background   : $carousel-figcaption-background,
+
+          $carousel-bp                      : $carousel-bp 
+      )
+}

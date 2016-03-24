@@ -1,0 +1,407 @@
+$default-show-caption     : always; //always, hover, featuredonly
+$default-caption-bg-color : rgba(0,0,0,0.7);
+$default-caption-color    : $inverse;
+$default-caption-position : bottom; //top, bottom, full
+$default-gallery-radius   : $radius;
+$default-gallery-max-width: $element-max-width;
+$default-gallery-bp       : $mobile-bp;
+
+@mixin gallery-base() {
+
+    ul.grid{
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1em;
+
+        li{
+            margin: 0;
+            padding: 0;
+        }
+
+        figure{
+            position: relative;
+            @include span(3);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+
+            figcaption{
+                display: block;
+                padding: 1em;
+                font-size: .8em;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                transition: background-color 0.3s ease-in-out;
+
+                h3{
+                    color: inherit;
+                    font-size: 1.4em;
+                    margin-bottom: 0;
+                    margin-top: 0;
+                }
+
+                p{
+                    color: inherit;
+                    font-size: .8em;
+                    margin-bottom: .2em;
+                    margin-top: 0.5em;
+                }
+            }
+            // images deemed featured will get large size
+            &.featured{
+                @include span(6);
+                margin: 0;
+                padding: 0;
+            }
+
+            img{
+                width: 100%;
+            }
+
+            &:hover{
+                cursor: pointer;
+            }
+           
+        }
+    }
+
+    .carousel.gallery-viewer {
+       @include span(12);
+
+       .slick-slide { 
+         figure { 
+           padding: 0.5em;
+         }
+       }
+
+       .slick-next:before, .slick-prev:before {
+         border-radius: 0;
+         font-size: 1.3em;
+         top: 50%;
+         transform: translateY(-50%);
+         margin-top: 0;
+       }
+    }
+}
+
+@mixin gallery-style(
+   $show-caption                    : $default-show-caption,
+   $caption-bg-color                : $default-caption-bg-color,
+   $caption-featured-bg-color       : $caption-bg-color,
+   $caption-hover-bg-color          : $caption-bg-color,
+   $caption-featured-hover-bg-color :  $caption-featured-bg-color,
+   $caption-color                   : $default-caption-color,
+   $caption-featured-color          : $caption-color,
+   $caption-hover-color             : $caption-color,
+   $caption-featured-hover-color    : $caption-featured-color,
+   $caption-position                : $default-caption-position,
+   $gallery-radius                  : $default-gallery-radius,
+   $gallery-max-width               : $default-gallery-max-width,
+   $gallery-bp                      : $default-gallery-bp
+    ){
+    @include breakpoint($gallery-bp) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    ul.grid{
+        max-width: $gallery-max-width;
+
+        figure{
+            border-radius: $radius;
+
+            @include breakpoint($bp-5) {
+                @include span(12);
+            }
+
+            figcaption{
+                background: $caption-bg-color;
+                color: $caption-color;
+               
+            }
+            // images deemed featured will get large size
+            &.featured{
+                background-color: $caption-featured-color;
+                color: $caption-featured-color;
+
+                @include breakpoint($bp-5) {
+                    @include span(12);
+                }
+
+                &:hover {
+                    figcaption {
+                        background-color: $caption-featured-hover-bg-color;
+                        color: $caption-featured-hover-color;
+                    }
+                }
+            }
+
+            &:hover{
+                figcaption {
+                    background-color: $caption-hover-bg-color;
+                    color: $caption-hover-color;
+                }
+            }
+
+            @if $caption-position == full {
+                vertical-align: middle;
+                figcaption {
+                    display: inline-block;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    vertical-align: middle;
+                    > * {
+                        box-sizing: border-box;
+                        padding: 0 1em;
+                    }
+                }
+                
+
+            } @else {
+                figcaption {
+                     #{$caption-position}: 0;
+                }
+            }
+
+            @if $show-caption != always {
+                figcaption {
+                    opacity: 0;
+                    @include transition(background-color 0.3s ease-in-out, opacity 0.3s ease-in-out);
+                }
+
+                &:hover figcaption {
+                    opacity: 1;
+                }
+            }
+
+            @if $show-caption == featuredonly {
+                &.featured figcaption { opacity: 1; }
+            }
+        }
+    }
+
+}
+
+@mixin gallery(  
+    $show-caption                   : $default-show-caption,
+    $caption-bg-color               : $default-caption-bg-color,
+    $caption-featured-bg-color      : $caption-bg-color,
+    $caption-hover-bg-color         : $caption-bg-color,
+    $caption-featured-hover-bg-color:  $caption-featured-bg-color,
+    $caption-color                  : $default-caption-color,
+    $caption-featured-color         : $caption-color,
+    $caption-hover-color            : $caption-color,
+    $caption-featured-hover-color   : $caption-featured-color,
+    $caption-position               : $default-caption-position,
+    $gallery-radius                 : $default-gallery-radius,
+    $gallery-bp                     : $default-gallery-bp
+    ) {
+
+    @include gallery-base();
+    @include gallery-style(
+        $show-caption                    : $show-caption,
+        $caption-bg-color                : $caption-bg-color,
+        $caption-featured-bg-color       : $caption-featured-bg-color,
+        $caption-hover-bg-color          : $caption-hover-bg-color,
+        $caption-featured-hover-bg-color : $caption-featured-hover-bg-color,
+        $caption-color                   : $caption-color,
+        $caption-featured-color          : $caption-featured-color,
+        $caption-hover-color             : $caption-hover-color,
+        $caption-featured-hover-color    : $caption-featured-hover-color,
+        $caption-position                : $caption-position,
+        $gallery-radius                  : $gallery-radius,
+        $gallery-bp                      : $gallery-bp
+    );
+}
+
+@mixin gallery-viewer(
+        $gm-image-scale: 1, 
+        $gm-image-max-width: null,
+        $gm-image-max-height: null,
+        $gm-image-overlap: 4em,
+        $gm-interface-color: $inverse,
+        $gm-action-bg-color: $gm-interface-color,
+        $gm-action-color: color-contrast($gm-action-bg-color, $link-color, $inverse),
+        $gm-nav-text: true,
+        $gm-nav-icon-prev: "\203A",
+        $gm-nav-icon-next: "\2039",
+        $gm-nav-accent-border: true
+    ) {
+
+
+    .modal.gallery {
+        @include modal-style(
+          $modal-primary-color: transparent,
+          $modal-max-width: none,
+          $modal-width: 100%,
+          $modal-animation: scale-up
+        );
+
+        //Allow click though slick track & modal to overlay
+        pointer-events: none;
+        > * { pointer-events: none; }
+        .nav-prev, .nav-next, .slide { pointer-events: auto; }
+
+        .modal-body { padding: 0; }
+
+        .modal-content {
+            height: 100vh;
+        }
+
+        .modal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            .close-modal {
+                color: $inverse;
+                @include regular;
+                position: absolute;
+                top: 0.5em;
+                right: 1em;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+        }
+      
+
+        /* Slideshow style */
+        .gallery-viewer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 500;
+            perspective: 1000px;
+
+            .slide-track {
+                width: 100%;
+                font-size: 0.8rem;
+
+                > * {
+                    position: absolute;
+                    top: 50%;
+                    left: -100vw;
+                    visibility: hidden;
+                    transform: translate(0, -50%) scale(0.75, 0.75);
+                    opacity: 0;
+                    transition: all 0.35s ease-in-out;
+                    box-sizing: border-box;
+
+                    &.active {
+                     visibility: visible;
+                     opacity: 0.75;
+                    }
+
+                   &.previous {
+                      transform-origin: center right;
+                    }
+                    &.next {
+                      transform-origin: center left;
+                       & ~ * {
+                        left: 100vw;
+                      }
+                    }
+                    
+                    &.current {
+                      transform: translate(-50%, -50%) scale(1, 1);
+                      opacity: 1;
+                      left: 50%;
+                    }
+                }
+
+                &.animatable li {
+                   transition: transform 0.5s;
+               }
+
+            }
+
+            figure {
+                width: auto;
+                position: relative;
+                box-sizing: border-box;
+                background: $gm-interface-color;
+                padding: 2em;
+                overflow: hidden;
+                picture {
+                    display: inline-block;
+                }
+            }
+
+            figcaption {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 0.5em 2em 1em;
+                background-color: $gm-interface-color;
+                color: color-contrast($gm-interface-color);
+
+                h1, h2, h3, h4, h5, h6, p {
+                    margin: 0.5em 0;
+                    color: color-contrast($gm-interface-color);
+                }
+            }
+
+            nav button {
+                position: fixed;
+                z-index: 1000;
+                background-color: $gm-action-bg-color;
+                color: $gm-action-color;
+                border: none;
+                outline: none;
+                text-align: center;
+                padding: 1em 1.25em;
+                cursor: pointer;
+                font-size: 1.35em;
+
+                &.nav-prev,
+                &.nav-next {
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+
+                &.nav-next:after, &.nav-prev:before {
+                    @include icon-defaults;
+                    vertical-align: middle;
+                    font-size: 1.25em;
+                }
+
+                &.nav-next {
+                    right: 0;
+                    @if $gm-nav-accent-border {
+                        border-left: 0.35em solid $gm-action-color;
+                    }
+                    @if $gm-nav-icon-next {
+                        &:after {
+                            content: $gm-nav-icon-next;
+                            margin-left: 0.15em;
+                        }
+                    }
+                }
+
+                &.nav-prev {
+                     @if $gm-nav-accent-border {
+                        border-right: 0.35em solid $gm-action-color;
+                    }
+                    @if $gm-nav-icon-prev {
+                        &:before {
+                            content: $gm-nav-icon-prev;
+                            margin-right: 0.15em;
+                        }
+                    }
+                }
+            }
+
+            @include breakpoint($bp-4) { 
+              transform: translateY(-50%);
+              top: 50%;
+              .modal-content { min-height: 1px; }
+            }
+            
+        }
+
+    }
+}

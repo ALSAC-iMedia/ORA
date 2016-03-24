@@ -1,0 +1,656 @@
+$default-deck-margin: 2em auto 1em;
+$default-deck-padding: 1.5em 0 .25em 0;
+$default-deck-bp-1: 760px;
+$default-deck-max-width: $element-max-width;
+
+// deck TOC
+$default-deck-toc-background-color: none;
+$default-deck-toc-scroll-background-color: $grey-10;
+$default-deck-toc-border-bottom: 1px solid $grey-10;
+
+$default-deck-toc-menu-icon-open: "\2261";
+$default-deck-toc-menu-icon-close: "\2715";
+
+$default-deck-toc-scroll-icon-top: $caret-up;
+$default-deck-toc-scroll-icon-bottom: $caret-down;
+$default-deck-toc-scroll-icon-color: $link-color;
+$default-deck-toc-scroll-icon-border: 1px solid $link-color;
+$default-deck-toc-scroll-icon-inactive-color: $grey-20;
+$default-deck-toc-scroll-icon-border-inactive: 1px solid $grey-20;
+
+$default-deck-toc-container-max-height: 18.75em;
+$default-deck-toc-container-border: 1px solid $grey-20;
+
+$default-deck-toc-text-color: $link-color;
+$default-deck-toc-text-color-selected: $grey-20;
+$default-deck-toc-text-color-hover: $link-hover-color;
+$default-deck-toc-text-size: .75em;
+$default-deck-toc-text-weight: 500;
+$default-deck-toc-text-line-height: 145%;
+$default-deck-toc-text-padding: .5em;
+
+$default-deck-mobile-toc-item-background-hover: $grey-10;
+$default-deck-mobile-toc-item-background-selected: $grey-10;
+$default-deck-mobile-toc-item-border-bottom: 1px solid $grey-10;
+
+// deck Nav
+$default-deck-nav-height: 1.75em;
+$default-deck-nav-text-color: $base;
+$default-deck-nav-text-size: .75em;
+$default-deck-nav-prev-icon: $caret-left;
+$default-deck-nav-next-icon: $caret-right;
+$default-deck-nav-icon-color: $link-color;
+$default-deck-nav-icon-color-hover: $link-hover-color;
+$default-deck-nav-position-top: 10em;
+
+// deck Deck
+$default-deck-header-text-color: $base;
+$default-deck-header-text-size: .85em;
+$default-deck-header-line-height: 2em;
+
+$default-deck-counter-color: $grey-30;
+
+$default-deck-border: 1px solid $grey-10;
+
+@mixin deck-base() {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	@include center-align;
+	user-select: none;
+
+  
+
+	> .header {
+		padding: 0;
+		margin: 0 0 1em;
+
+		h2 {
+			max-width: inherit;
+			text-align: center;
+			font-weight: 100;
+		}
+	}
+
+	.toc {
+		@include span(3);
+		@include span-first;
+		position: relative;
+		z-index: 80;
+
+		.toc-scroll {
+			box-sizing: border-box;
+			cursor: pointer;
+			border-radius: 100%;
+			text-align: center;
+
+			&:before {
+				@include icon-defaults;
+				display: inline-block;
+				text-align: center;
+				line-height: 1;
+				padding: .5em;
+				border-radius: 50%;
+				margin-top: 1em;
+				transition: all 0.2s ease;
+			}
+			&.disabled{
+				display: none;
+				visibility: hidden;
+			}
+		}
+
+		ul {
+			list-style: none;
+			overflow: auto;
+			margin: 1em 0 1.5em;
+			padding: 0;
+		    display: block;
+			overflow-y:hidden;
+
+	    	&::-webkit-scrollbar {
+			  /* This is the magic bit */
+			  display: none;
+			}
+
+			li {
+				margin: 0;
+				padding: .5em;
+
+				a {
+					cursor: pointer;
+					display: block;
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+	.toc-icon {
+		@include icon-defaults;
+		box-sizing: border-box;
+		display: none;
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 0 0 .25em .5em;
+		font-size: 2.5em;
+		cursor: pointer;
+		height: auto;
+
+		&.active {
+			font-size: 1.75em;
+			padding: 0;
+		}
+		&.disabled{
+			display: none;
+			visibility: hidden;
+		}
+	}
+
+	.track-wrapper{
+  		position: relative;
+		@include span(9);
+		padding-left: 5em;
+		padding-right: 5em;
+		overflow: hidden;
+		clear: none;
+
+		&.fixed{
+        	@include offset-4;
+        }
+
+	
+
+	  	.counter{
+	  		position: absolute;
+			right: 0;
+			bottom: 0;
+			font-size: .8em;
+			padding: .5em;
+			display: block;
+	  	}
+
+  	}
+
+	// Individual Slide
+
+	.slide {
+		float:left;
+		width:100%;
+		position: relative;
+		box-sizing: border-box;
+		margin-top: 1.5em;
+
+		p, h2, h3, h4, h5, h6 {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.text{
+			max-width: inherit;
+		}
+	}
+
+
+	.track {
+  		overflow: hidden;
+		visibility: hidden;
+		float:left;
+		width:100%;
+		position: relative;
+		box-sizing: border-box;
+		margin-top: 1.5em;
+
+		p, h2, h3, h4, h5, h6 {
+			&:first-child {
+				margin-top: 0;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.text{
+			max-width: inherit;
+		}
+	}
+
+	// deck Navigation
+
+	nav.deck-nav{
+        @include span(12);
+        @include offset-3;
+        position: absolute;
+
+        &.fixed{
+        	position: fixed;
+       		top: 33%;
+        }
+
+        a.icon{
+            transition: all 0.2s ease;
+            z-index: 100;
+            font-size: 2em;
+
+            &.nav-prev{
+                margin-left: 0px;
+                border-left: 0px;
+                left: -1.5em;
+                text-align: left;
+				position: absolute;
+
+	            &:before{
+	                @include icon-defaults;
+	                display: block;
+	            }
+            }
+
+            &.nav-next{
+                margin-right: 0px;
+                border-right: 0px;
+                right: 0;
+                text-align: right;
+				position: absolute;
+
+	            &:before{
+	                @include icon-defaults;
+	                display: block;
+	            }
+            }
+
+            &:hover{
+                cursor: pointer;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+@mixin deck-style (
+	$deck-margin: $default-deck-margin,
+	$deck-padding: $default-deck-padding,
+	$deck-bp-1: $default-deck-bp-1,
+	$deck-max-width: $default-deck-max-width,
+
+	// deck TOC
+	$deck-toc-background-color: $default-deck-toc-background-color,
+	$deck-toc-scroll-background-color: $default-deck-toc-scroll-background-color,
+	$deck-toc-border-bottom: $default-deck-toc-border-bottom,
+
+	$deck-toc-menu-icon-open: $default-deck-toc-menu-icon-open,
+	$deck-toc-menu-icon-close: $default-deck-toc-menu-icon-close,
+
+	$deck-toc-scroll-icon-top: $default-deck-toc-scroll-icon-top,
+	$deck-toc-scroll-icon-bottom: $default-deck-toc-scroll-icon-bottom,
+	$deck-toc-scroll-icon-color: $default-deck-toc-scroll-icon-color,
+	$deck-toc-scroll-icon-border: $default-deck-toc-scroll-icon-border,
+	$deck-toc-scroll-icon-inactive-color: $default-deck-toc-scroll-icon-inactive-color,
+	$deck-toc-scroll-icon-border-inactive: $default-deck-toc-scroll-icon-border-inactive,
+
+	$deck-toc-container-max-height: $default-deck-toc-container-max-height,
+	$deck-toc-container-border: $default-deck-toc-container-border,
+
+	$deck-toc-text-color: $default-deck-toc-text-color,
+	$deck-toc-text-color-selected: $default-deck-toc-text-color-selected,
+	$deck-toc-text-color-hover: $default-deck-toc-text-color-hover,
+	$deck-toc-text-size: $default-deck-toc-text-size,
+	$deck-toc-text-weight: $default-deck-toc-text-weight,
+	$deck-toc-text-line-height: $default-deck-toc-text-line-height,
+	$deck-toc-text-padding: $default-deck-toc-text-padding,
+
+	$deck-mobile-toc-item-background-hover: $default-deck-mobile-toc-item-background-hover,
+	$deck-mobile-toc-item-background-selected: $default-deck-mobile-toc-item-background-selected,
+	$deck-mobile-toc-item-border-bottom: $default-deck-mobile-toc-item-border-bottom,
+
+	// deck Nav
+	$deck-nav-height: $default-deck-nav-height,
+	$deck-nav-text-color: $default-deck-nav-text-color,
+	$deck-nav-text-size: $default-deck-nav-text-size,
+	$deck-nav-prev-icon: $default-deck-nav-prev-icon,
+	$deck-nav-next-icon: $default-deck-nav-next-icon,
+	$deck-nav-icon-color: $default-deck-nav-icon-color,
+	$deck-nav-icon-color-hover: $default-deck-nav-icon-color-hover,
+	$deck-nav-position-top: $default-deck-nav-position-top,
+
+	// deck Deck
+	$deck-header-text-color: $default-deck-header-text-color,
+	$deck-header-text-size: $default-deck-header-text-size,
+	$deck-header-line-height: $default-deck-header-line-height,
+
+	$deck-counter-color: $default-deck-counter-color,
+
+	$deck-border: $default-deck-border
+
+) {
+	max-width: $deck-max-width;
+
+	@include breakpoint($deck-bp-1) {
+		margin: 1em 0;
+	};
+
+	// deck Header
+
+	> .header{
+  		border-bottom: $deck-border;
+
+  		h2{
+  			@include breakpoint($deck-bp-1) {
+				@include span(12);
+				position: relative;
+				padding-right: 2.5em;
+				font-size: 1.5em;
+				text-align: left;
+				padding-bottom: 1em;
+
+				&:first-child{
+					margin: 0;
+				}
+			};
+  		}
+  	}
+
+	// deck Table of Contents (TOC)
+
+	.toc{
+	
+		background: $deck-toc-background-color;
+
+        @include breakpoint($deck-bp-1) {
+			@include span(12);
+			position: relative;
+		};
+
+		.toc-scroll {
+
+			&:before {
+				content: $deck-toc-scroll-icon-top;
+				border: $deck-toc-scroll-icon-border;
+				color: $deck-toc-scroll-icon-color;
+			}
+
+			&.down {
+				&:before{
+					content: $deck-toc-scroll-icon-bottom;
+				}
+			}
+
+			&:hover {
+				&:before{
+					border: $deck-toc-scroll-icon-border-inactive;
+					color: $deck-toc-scroll-icon-inactive-color;
+				}
+			}
+
+
+			&.inactive {
+				&:before{
+					border: $deck-toc-scroll-icon-border-inactive;
+					color: $deck-toc-scroll-icon-inactive-color;
+				}
+			}
+
+			@include breakpoint($deck-bp-1) {
+				display: none;
+			};
+		}
+
+		ul {
+		    max-height: $deck-toc-container-max-height;
+
+			@include breakpoint($deck-bp-1) {
+				display: none;
+				background: lighten($grey-10, 5%);
+				margin: 0 1em;
+
+				&.active {
+					display: block;
+				}
+			};
+
+			li {
+				font-size: $deck-toc-text-size;
+				font-weight: $deck-toc-text-weight;
+			    line-height: $deck-toc-text-line-height;
+
+			    a {
+			    	padding: $deck-toc-text-padding;
+					color: $deck-toc-text-color;
+
+			    	&:hover {
+			    		color: $deck-toc-text-color-hover;
+			    	}
+			    }
+
+			   &.selected a{
+					color: $deck-toc-text-color-selected;
+				}
+
+				@include breakpoint($deck-bp-1) {
+					border-bottom: $deck-mobile-toc-item-border-bottom;
+
+					&:hover {
+						background: $deck-mobile-toc-item-background-hover;
+					}
+
+					&.selected {
+						background: $deck-mobile-toc-item-background-selected;
+					}
+				};
+			}
+
+		}
+
+	}
+
+	.toc-icon {
+		&:before {
+			content: "\e604";
+		}
+
+		&.active:before {
+			content: "\e051"
+		}
+
+		@include breakpoint($deck-bp-1) {
+			display: block;
+		};
+	}
+
+	// Deck Wrapper
+
+	.track-wrapper{
+		@include breakpoint($deck-bp-1) {
+			@include span(12);
+			margin-top: 2em;
+			padding-right: 2em;
+			padding-left: 2em;
+		};
+
+		overflow: visible;
+
+	  	.counter{
+			color: $deck-counter-color;
+			@include breakpoint($deck-bp-1) {
+				top: -2em;
+			};
+	  	}
+  	}
+
+	
+
+	.track {
+		@include breakpoint($deck-bp-1) {
+			font-size: .8em;
+		};
+	}
+
+	// Individual slide
+
+	.slide {
+		@include breakpoint($deck-bp-1) {
+			font-size: .8em;
+		};
+	}
+
+	// deck Navigation
+
+	nav.deck-nav{
+        top: $deck-nav-position-top;
+
+        @include breakpoint($deck-bp-1) {
+			@include span(12);
+		};
+
+        a.icon{
+            color: $deck-nav-icon-color;
+
+            &.nav-prev{
+				@include breakpoint($deck-bp-1) {
+					left: -.1em;
+				};
+
+	            &:before{
+	                content: $deck-nav-prev-icon;
+	            }
+            }
+
+            &.nav-next{
+				@include breakpoint($deck-bp-1) {
+					right: -.2em;
+				};
+
+	            &:before{
+	                content: $deck-nav-next-icon;
+	            }
+            }
+
+            &:hover{
+                color: $deck-nav-icon-color-hover;
+            }
+        }
+    }
+}
+
+@mixin deck(
+		$deck-margin: $default-deck-margin,
+		$deck-padding: $default-deck-padding,
+		$deck-bp-1: $default-deck-bp-1,
+		$deck-max-width: $default-deck-max-width,
+
+		// deck TOC
+		$deck-toc-background-color: $default-deck-toc-background-color,
+		$deck-toc-scroll-background-color: $default-deck-toc-scroll-background-color,
+		$deck-toc-border-bottom: $default-deck-toc-border-bottom,
+
+		$deck-toc-menu-icon-open: $default-deck-toc-menu-icon-open,
+		$deck-toc-menu-icon-close: $default-deck-toc-menu-icon-close,
+
+		$deck-toc-scroll-icon-top: $default-deck-toc-scroll-icon-top,
+		$deck-toc-scroll-icon-bottom: $default-deck-toc-scroll-icon-bottom,
+		$deck-toc-scroll-icon-color: $default-deck-toc-scroll-icon-color,
+		$deck-toc-scroll-icon-border: $default-deck-toc-scroll-icon-border,
+		$deck-toc-scroll-icon-inactive-color: $default-deck-toc-scroll-icon-inactive-color,
+		$deck-toc-scroll-icon-border-inactive: $default-deck-toc-scroll-icon-border-inactive,
+
+		$deck-toc-container-max-height: $default-deck-toc-container-max-height,
+		$deck-toc-container-border: $default-deck-toc-container-border,
+
+		$deck-toc-text-color: $default-deck-toc-text-color,
+		$deck-toc-text-color-selected: $default-deck-toc-text-color-selected,
+		$deck-toc-text-color-hover: $default-deck-toc-text-color-hover,
+		$deck-toc-text-size: $default-deck-toc-text-size,
+		$deck-toc-text-weight: $default-deck-toc-text-weight,
+		$deck-toc-text-line-height: $default-deck-toc-text-line-height,
+		$deck-toc-text-padding: $default-deck-toc-text-padding,
+
+		$deck-mobile-toc-item-background-hover: $default-deck-mobile-toc-item-background-hover,
+		$deck-mobile-toc-item-background-selected: $default-deck-mobile-toc-item-background-selected,
+		$deck-mobile-toc-item-border-bottom: $default-deck-mobile-toc-item-border-bottom,
+
+		// deck Nav
+		$deck-nav-height: $default-deck-nav-height,
+		$deck-nav-text-color: $default-deck-nav-text-color,
+		$deck-nav-text-size: $default-deck-nav-text-size,
+		$deck-nav-prev-icon: $default-deck-nav-prev-icon,
+		$deck-nav-next-icon: $default-deck-nav-next-icon,
+		$deck-nav-icon-color: $default-deck-nav-icon-color,
+		$deck-nav-icon-color-hover: $default-deck-nav-icon-color-hover,
+		$deck-nav-position-top: $default-deck-nav-position-top,
+
+		// deck Deck
+		$deck-header-text-color: $default-deck-header-text-color,
+		$deck-header-text-size: $default-deck-header-text-size,
+		$deck-header-line-height: $default-deck-header-line-height,
+
+		$deck-counter-color: $default-deck-counter-color,
+
+		$deck-border: $default-deck-border
+	) {
+	@include deck-base();
+	@include deck-style(
+		$deck-margin: $deck-margin,
+		$deck-padding: $deck-padding,
+		$deck-bp-1: $deck-bp-1,
+		$deck-max-width: $deck-max-width,
+
+		// deck TOC
+		$deck-toc-background-color: $deck-toc-background-color,
+		$deck-toc-scroll-background-color: $deck-toc-scroll-background-color,
+		$deck-toc-border-bottom: $deck-toc-border-bottom,
+
+		$deck-toc-menu-icon-open: $deck-toc-menu-icon-open,
+		$deck-toc-menu-icon-close: $deck-toc-menu-icon-close,
+
+		$deck-toc-scroll-icon-top: $deck-toc-scroll-icon-top,
+		$deck-toc-scroll-icon-bottom: $deck-toc-scroll-icon-bottom,
+		$deck-toc-scroll-icon-color: $deck-toc-scroll-icon-color,
+		$deck-toc-scroll-icon-border: $deck-toc-scroll-icon-border,
+		$deck-toc-scroll-icon-inactive-color: $deck-toc-scroll-icon-inactive-color,
+		$deck-toc-scroll-icon-border-inactive: $deck-toc-scroll-icon-border-inactive,
+
+		$deck-toc-container-max-height: $deck-toc-container-max-height,
+		$deck-toc-container-border: $deck-toc-container-border,
+
+		$deck-toc-text-color: $deck-toc-text-color,
+		$deck-toc-text-color-selected: $deck-toc-text-color-selected,
+		$deck-toc-text-color-hover: $deck-toc-text-color-hover,
+		$deck-toc-text-size: $deck-toc-text-size,
+		$deck-toc-text-weight: $deck-toc-text-weight,
+		$deck-toc-text-line-height: $deck-toc-text-line-height,
+		$deck-toc-text-padding: $deck-toc-text-padding,
+
+		$deck-mobile-toc-item-background-hover: $deck-mobile-toc-item-background-hover,
+		$deck-mobile-toc-item-background-selected: $deck-mobile-toc-item-background-selected,
+		$deck-mobile-toc-item-border-bottom: $deck-mobile-toc-item-border-bottom,
+
+		// deck Nav
+		$deck-nav-height: $deck-nav-height,
+		$deck-nav-text-color: $deck-nav-text-color,
+		$deck-nav-text-size: $deck-nav-text-size,
+		$deck-nav-prev-icon: $deck-nav-prev-icon,
+		$deck-nav-next-icon: $deck-nav-next-icon,
+		$deck-nav-icon-color: $deck-nav-icon-color,
+		$deck-nav-icon-color-hover: $deck-nav-icon-color-hover,
+		$deck-nav-position-top: $deck-nav-position-top,
+
+		// deck Deck
+		$deck-header-text-color: $deck-header-text-color,
+		$deck-header-text-size: $deck-header-text-size,
+		$deck-header-line-height: $deck-header-line-height,
+
+		$deck-counter-color: $deck-counter-color,
+
+		$deck-border: $deck-border
+	);
+}

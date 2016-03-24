@@ -1,0 +1,398 @@
+
+$default-table-bp-1: 800px;
+
+$default-table-margin: .5em 0 .5em 0;
+$default-table-radius: $radius;
+
+$default-table-border-color         : rgba(0,0,0,0.1);
+$default-table-border-color-inverse : $inverse;
+
+$default-table-alternating-rows: ($grey-20, $inverse);
+// $default-table-row-color-even : $inverse;
+// $default-table-row-color-odd  : $grey-10;
+
+$default-table-size          : 1rem;
+$default-table-text-color         : inherit;
+// $default-table-text-line-height   : 130%;
+
+$default-table-head-background-color : $swatch-10;
+$default-table-border-width          : 1px;
+$default-table-border-style          : solid;
+// $default-table-head-padding          : .5em;
+$default-table-head-text-size        : $h4-size;
+// $default-table-head-text-color       : $inverse;
+// $default-table-head-text-weight      : 100;
+// $default-table-head-text-align       : left;
+
+$default-table-subhead-background-color: $grey-60;
+
+
+// $default-table-data-padding       : .5em 1.2em;
+$default-table-data-background-hover-color   : $grey-40;
+// $default-table-data-text-align    : left;
+
+
+@mixin table-base() {
+    box-sizing: border-box;
+    overflow-x: auto; 
+    padding: 0;
+    width: 100%;
+    line-height: 130%;
+    text-align: left;
+
+    div, form, input, label, table, tbody, tr, th, td{
+       box-sizing: border-box;
+    }
+
+    // form{
+    //     position: relative;
+
+    //     label{
+    //       position: absolute;
+    //       top: 1.27em;
+    //       left: 0.5em;
+    //       z-index: 1;
+    //       box-sizing: border-box;
+    //     }
+
+    //     input[type="text"]{
+    //         box-sizing: border-box;
+    //         border-radius: 0.2em;
+    //         box-shadow: none;
+    //         transition: all 0.25s ease-in-out;
+    //         border: 2px solid #b3b3b3;
+    //         color: #000;
+    //         font-family: inherit;
+    //         font-size: 1em;
+    //         line-height: 3.8em;
+    //         text-overflow: ellipsis;
+    //         padding: 0 0 0 0.5em;
+    //         height: 3.75em;
+    //         width: 50%;
+    //     }
+    // }
+
+    table{
+        border: 0;
+        border-collapse: separate;
+    }
+
+    tr{
+        border-left: 0;
+        border-bottom: 0;
+        border-right: 0;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover th{
+            cursor: pointer;
+        }
+
+        p{
+          margin: 0;
+          padding: 0;
+          line-height: 1em;
+          color: inherit;
+        }
+        
+    }
+
+    th{
+        border: 0 none;
+        font-weight: 500;
+    }
+
+    tr:first-child th{
+
+        &:first-child{
+            border-left: none;
+        }
+
+        &:last-child{
+            border-right: none;
+        }
+
+    }
+
+    tbody tr:first-child {
+      border-top: none;
+    }
+
+
+    tbody tr td{
+        border: 0 none;
+
+        &:last-child{
+            border-right: 0px;
+        }
+
+        &.cell-subhead{
+          border: 0 none;
+        }
+    }
+
+
+}
+
+
+@mixin table-style (
+  $table-bp-1                       : $default-table-bp-1,
+  
+  $table-margin                     : $default-table-margin,
+  $table-radius                     : $default-table-radius,
+  
+  $table-border-color               : $default-table-border-color,
+  $table-border-color-inverse       : $default-table-border-color-inverse,
+  $table-border-width               : $default-table-border-width,
+  $table-border-style               : $default-table-border-style,
+  $table-border                     : $table-border-width $table-border-style $table-border-color,
+  
+  $table-size                       : $default-table-size,
+  
+  $table-hover-interactions         : null,
+  
+  $table-text-size                  : $table-size,
+  $table-text-color                 : $default-table-text-color,
+  // $table-text-line-height        : $default-table-text-line-height,
+  
+  $table-head-background-color      : $default-table-head-background-color,
+  $table-head-hover-color           : darken($table-head-background-color, 10%),
+  
+  $table-head-border-width          : $table-border-width,
+  $table-head-border-style          : $table-border-style,
+  $table-head-border                : $table-head-border-width $table-head-border-style $table-border-color,
+  $table-head-border-top            : $table-head-border-width $table-head-border-style $table-border-color-inverse,
+  $table-head-border-bottom         : $table-head-border-width*5 $table-head-border-style $table-border-color,
+  
+  $table-head-padding               : $table-size*.5 ,
+  $table-head-text-size             : $table-text-size*1.1,
+  $table-head-text-color            : color-contrast($table-head-background-color),
+  
+  $table-subhead-background-color   : $default-table-subhead-background-color,
+  $table-subhead-hover-color        : $table-head-hover-color,
+  
+  $table-subhead-border             : $table-head-border,
+  $table-subhead-border-top         : $table-head-border-top,
+  $table-subhead-border-bottom      : $table-head-border-bottom,
+  
+  $table-subhead-padding            : $table-head-padding,
+  $table-subhead-text-size          : $table-head-text-size,
+  $table-subhead-text-color         : $table-head-text-color,
+  
+  $table-data-padding               : $table-text-size*.5 $table-text-size*1.2,
+  $table-data-background-hover-color: $default-table-data-background-hover-color,
+  
+  // $table-row-color-even          : $default-table-row-color-even,
+  // $table-row-color-odd           : $default-table-row-color-odd,
+  $table-alternating-rows           : $default-table-alternating-rows
+){
+    font-size: $table-text-size;
+    color: $table-text-color;
+
+    // form{
+
+    //     input[type="text"]{
+
+    //         @include breakpoint($table-bp-1) {
+    //             width: 100%;
+    //         };
+    //     }
+    // }
+
+    table{
+        margin: $table-margin;
+        border-bottom: $table-border;
+        border-collapse: separate;
+    }
+
+
+    tr{
+        border-top: $table-border;
+
+        @if $table-alternating-rows {
+          @for $i from 1 through length($table-alternating-rows) {
+            &:nth-child(#{$i}n + 1) {
+              background-color: nth($table-alternating-rows, $i);
+            }
+          }
+
+        }
+
+        // &:nth-child(1n + 1) {
+        //     background: $table-row-color-even;
+        // }
+
+        // &:nth-child(2n + 1) {
+        //     background: $table-row-color-odd;
+        // }
+
+        @if $table-hover-interactions {
+          &:hover {
+           cursor: pointer;
+            th {
+              background: $table-head-hover-color;
+            }
+            td {
+                color: color-contrast($table-data-hover-color);
+                background: $table-data-hover-color;
+            }
+          }
+        }
+
+        &.subhead {
+          td {
+            background: $table-subhead-background-color;
+            font-size: $table-subhead-text-size;
+            // font-weight: $table-subhead-text-weight;
+            padding: $table-subhead-padding;
+            color: $table-subhead-text-color;
+            border-right: $table-subhead-border;
+            border-bottom: $table-subhead-border-bottom;
+            // text-align: $table-subhead-text-align;
+          }
+        }
+    }
+
+    th{
+        background: $table-head-background-color;
+        color: $table-head-text-color;
+        font-size: $table-head-text-size;
+        // font-weight: $table-head-text-weight;
+        padding: $table-head-padding;
+        border-right: $table-border;
+        border-bottom: $table-head-border-bottom;
+        // text-align: $table-head-text-align;
+
+    }
+
+    tr:first-child th{
+
+        &:first-child{
+            border-top-left-radius: $table-radius;
+
+        }
+
+        &:last-child{
+            border-top-right-radius: $table-radius;
+        }
+
+    }
+
+
+    td{
+        border-right: $table-border;
+        // text-align: $table-data-text-align;
+        // line-height: $table-text-line-height;
+        padding: $table-data-padding;
+        color: $table-text-color;
+    }
+}
+
+  @mixin table(
+     $table-bp-1                       : $default-table-bp-1,
+     
+     $table-margin                     : $default-table-margin,
+     $table-radius                     : $default-table-radius,
+     
+     $table-border-color               : $default-table-border-color,
+     $table-border-color-inverse       : $default-table-border-color-inverse,
+     $table-border-width               : $default-table-border-width,
+     $table-border-style               : $default-table-border-style,
+     $table-border                     : $table-border-width $table-border-style $table-border-color,
+     
+     $table-size                       : $default-table-size,
+     
+     $table-hover-interactions         : null,
+     
+     $table-text-size                  : $table-size,
+     $table-text-color                 : $default-table-text-color,
+     // $table-text-line-height        : $default-table-text-line-height,
+     
+     $table-head-background-color      : $default-table-head-background-color,
+     $table-head-hover-color           : darken($table-head-background-color, 10%),
+     
+     $table-head-border-width          : $table-border-width,
+     $table-head-border-style          : $table-border-style,
+     $table-head-border                : $table-head-border-width $table-head-border-style $table-border-color,
+     $table-head-border-top            : $table-head-border-width $table-head-border-style $table-border-color-inverse,
+     $table-head-border-bottom         : $table-head-border-width*5 $table-head-border-style $table-border-color,
+     
+     $table-head-padding               : $table-size*.5,
+     $table-head-text-size             : $table-size*1.175,
+     $table-head-text-color            : color-contrast($table-head-background-color),
+     
+     $table-subhead-background-color   : $default-table-subhead-background-color,
+     $table-subhead-hover-color        : $table-head-hover-color,
+     
+     $table-subhead-border             : $table-head-border,
+     $table-subhead-border-top         : $table-head-border-top,
+     $table-subhead-border-bottom      : $table-head-border-bottom,
+     
+     $table-subhead-padding            : $table-head-padding,
+     $table-subhead-text-size          : $table-head-text-size,
+     $table-subhead-text-color         : $table-head-text-color,
+     
+     $table-data-padding               : $table-text-size*.5 $table-text-size*2,
+     $table-data-background-hover-color: $default-table-data-background-hover-color,
+     
+     // $table-row-color-even          : $default-table-row-color-even,
+     // $table-row-color-odd           : $default-table-row-color-odd,
+     $table-alternating-rows           : $default-table-alternating-rows
+  ) {
+
+    @include table-base();
+    @include table-style(
+      $table-bp-1                       : $table-bp-1,
+      
+      $table-margin                     : $table-margin,
+      $table-radius                     : $table-radius,
+      
+      $table-border-color               : $table-border-color,
+      $table-border-color-inverse       : $table-border-color-inverse,
+      $table-border-width               : $table-border-width,
+      $table-border-style               : $table-border-style,
+      $table-border                     : $table-border,
+      
+      $table-size                       : $table-size,
+      
+      $table-hover-interactions         : $table-hover-interactions,
+      
+      $table-text-size                  : $table-text-size,
+      $table-text-color                 : $table-text-color,
+      // $table-text-line-height        : $default-table-text-line-height,
+      
+      $table-head-background-color      : $default-table-head-background-color,
+      $table-head-hover-color           : $table-head-hover-color,
+      
+      $table-head-border-width          : $table-head-border-width,
+      $table-head-border-style          : $table-head-border-style,
+      $table-head-border                : $table-head-border,
+      $table-head-border-top            : $table-head-border-top,
+      $table-head-border-bottom         : $table-head-border-bottom,
+      
+      $table-head-padding               : $table-head-padding,
+      $table-head-text-size             : $table-text-size,
+      $table-head-text-color            : $table-text-color,
+      
+      $table-subhead-background-color   : $table-subhead-background-color,
+      $table-subhead-hover-color        : $table-head-hover-color,
+      
+      $table-subhead-border             : $table-head-border,
+      $table-subhead-border-top         : $table-head-border-top,
+      $table-subhead-border-bottom      : $table-head-border-bottom,
+      
+      $table-subhead-padding            : $table-subhead-padding,
+      $table-subhead-text-size          : $table-subhead-text-size,
+      $table-subhead-text-color         : $table-subhead-text-color,
+      
+      $table-data-padding               : $table-data-padding,
+      $table-data-background-hover-color: $table-data-background-hover-color,
+      
+      // $table-row-color-even          : $default-table-row-color-even,
+      // $table-row-color-odd           : $default-table-row-color-odd,
+      $table-alternating-rows           : $table-alternating-rows
+    );
+
+  }

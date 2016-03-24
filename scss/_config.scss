@@ -1,0 +1,265 @@
+
+// Global Color Swatches
+// --------------------------------------------------
+//Primary Branded Colors
+$swatch-1: #931638; //maroon
+$swatch-2: #8c7f70; //brown
+$swatch-3: #CE2F3F; //New Brand Red
+
+//Secondary Branded Colors
+$swatch-4: #efb22d; //dark yellow
+$swatch-5: #FFD87F; //light yellow
+$swatch-6: #87A03C; //green
+$swatch-7: #00818B; //turquoise
+$swatch-8: #664A78; //purple
+$swatch-9: #D47F2B; //orange
+
+//2015 Brand Colors
+$swatch-10: #1381B3; //blue
+$swatch-11: #7AC4B8; //aqua
+$swatch-12: #B9D9DB; //robins egg
+$swatch-13: #A8B0B1; //cool grey 
+$swatch-14: #7389B0; //hospital blue
+$swatch-15: #D4D848; //TG Green
+$swatch-16: #f0f1f2; //Light Grey w/ blue tint
+
+$swatches: (
+	swatch-1: $swatch-1,
+	swatch-2: $swatch-2,
+	swatch-3: $swatch-3,
+	swatch-4: $swatch-4,
+	swatch-5: $swatch-5,
+	swatch-6: $swatch-6,
+	swatch-7: $swatch-7,
+	swatch-8: $swatch-8,
+	swatch-9: $swatch-9,
+	swatch-10: $swatch-10,
+	swatch-11: $swatch-11,
+	swatch-12: $swatch-12,
+	swatch-13: $swatch-13,
+	swatch-14: $swatch-14,
+	swatch-15: $swatch-15,
+	swatch-16: $swatch-16
+);
+
+//Monochromatic - greyscale colors
+$black: #000; //black
+$grey-10: lighten($black, 90%); 
+$grey-20: lighten($black, 80%); 
+$grey-30: lighten($black, 70%);
+$grey-40: lighten($black, 60%);
+$grey-50: lighten($black, 50%);
+$grey-60: lighten($black, 40%);
+$grey-70: lighten($black, 30%);
+$grey-80: lighten($black, 20%);
+$grey-90: lighten($black, 10%);
+
+//
+// App specific Color Swatches // Use branded colors 
+// --------------------------------------------------
+$primary: $swatch-1; //primary color for website
+$secondary: $swatch-10; //secondary color for website
+
+//UI Defaults
+$base: #444; //sets a base color for text & UI elements such as inputs, radios, buttons, etc...
+$accent: #1381B3; //sets an accent to the base color used for things like :focus, links, selected, etc.. 
+$inverse: #fff; //sets a light color for dark backgrounds
+
+//Global link color
+$link-color: $accent; //blue
+$link-hover-color: darken($link-color, 20%);
+
+$hierarchy: (
+	primary: $primary,
+	secondary: $swatch-2,
+	base: $base,
+	accent: $accent,
+	inverse: $inverse
+);
+
+//
+//Additional off brand Helpers
+// --------------------------------------------------
+$midnight-blue: #2c3e50; //dark blue
+$info: #3498db; //blue
+$success: #0F9E4C; //green
+$warning: #FDB10E; //orangish-yellow
+$danger: #e74c3c; //red
+
+$actions: (
+	info: $info,
+	success: $success,
+	warning: $warning,
+	danger: $danger
+);
+
+//
+// Accent Colors
+// --------------------------------------------------
+// Please keep the colors from light to dark
+$accent-1: $grey-80;
+$accent-2: darken($swatch-10, 15%);
+$accent-3: lighten($swatch-10, 50%);
+$accent-4: $swatch-16;
+$accent-5: $inverse;
+
+$accents: (
+	accent-1: $accent-1,
+	accent-2: $accent-2,
+	accent-3: $accent-3,
+	accent-4: $accent-4,
+	accent-5: $accent-5
+);
+
+$colors: map-collect($accents, $hierarchy, $actions, $swatches);
+
+// -----------------------------------------------------------------
+// Typography
+// ------------------------------------------------------------------
+
+$base-font-family: "Open Sans", Helvetica, Arial, sans-serif;
+$secondary-font-family: Georgia, Times, "Times New Roman", serif;
+$base-text-color: $base;
+$base-font-size: 1em; // 16px
+$base-line-height: 100%;
+
+$h1-family: $base-font-family;
+$h1-size: $base-font-size * 2.5;
+$h1-weight: 300;
+$h1-margin: 1.25em 0 .75em;
+$h1-padding: 0;
+$h1-text-color: $primary;
+$h1-line-height: 1.25em;
+$h1-letter-spacing: auto;
+
+$h2-family: $base-font-family;
+$h2-size: $base-font-size * 1.75;
+$h2-weight: 500;
+$h2-margin: 1.5em 0 1.5em;
+$h2-padding: 0 0 0 0;
+$h2-text-color: $black;
+$h2-line-height: 130%;
+$h2-letter-spacing: auto;
+
+$h3-family: $base-font-family;
+$h3-size: $base-font-size * 1.425;
+$h3-weight: 400;
+$h3-margin: 1.5em 0 1.5em;
+$h3-padding: 0;
+$h3-text-color: $black;
+$h3-line-height: 150%;
+$h3-letter-spacing: auto;
+
+$h4-family: $base-font-family;
+$h4-size: $base-font-size * 1.175;
+$h4-weight: 500;
+$h4-margin: .85em 0 .85em;
+$h4-padding: 0;
+$h4-text-color: $grey-70;
+$h4-line-height: 130%;
+$h4-letter-spacing: auto;
+
+$h5-family: $base-font-family;
+$h5-size: $base-font-size;
+$h5-weight: 300;
+$h5-margin: 0 0 .85em;
+$h5-padding: 0;
+$h5-text-color: $base;
+$h5-line-height: 100%;
+$h5-letter-spacing: auto;
+
+$h6-family: $base-font-family;
+$h6-size: $base-font-size * 0.875;
+$h6-weight: 300;
+$h6-margin: 0 0 .85em;
+$h6-padding: 0;
+$h6-text-color: $base;
+$h6-line-height: 100%;
+$h6-letter-spacing: auto;
+
+$p-family: $base-font-family;
+$p-size: $base-font-size * 1.175;
+$p-weight: 300;
+$p-margin: 1em 0 1em 0;
+$p-padding: 0;
+$p-text-color: $base;
+$p-line-height: 1.5em;
+$p-letter-spacing: auto;
+
+$list-family: $base-font-family;
+$list-text-size: $p-size;
+$list-weight: $p-weight;
+$list-margin: 0 0 .5em 0;
+$list-padding: 0 0 0 2em;
+$list-text-color: $base;
+$list-line-height: 1.25em;
+$list-letter-spacing: $p-letter-spacing;
+
+$li-padding: 0 0 .75em 0;
+$li-margin: 0;
+
+$ol-padding: 0 0 0 2em;
+
+$dd-padding: 0;
+$dd-margin: 0 0 1em 0;
+$dt-text-color: darken($list-text-color, 60%);
+$dd-text-color: $list-text-color;
+
+// Icons
+// -------------------------
+$icon-font-family: 'icons'; //sj-extened is the default icon set included in basesite and can be deleted; HF-icons is global 
+
+$icon-font-size: $base-font-size;
+// Logo Colors
+// -------------------------
+$logo-child-color: $swatch-1;
+$logo-type-color: $grey-60;
+
+//Global border radius
+// -------------------------
+$radius: 3px; 
+
+// ------------------------------
+// Responsive Grid variables
+// ------------------------------
+$max_columns: 12;
+$gutter-p: 0; //padding-left percentage
+$gutter-m: 2%; //padding-left percentage
+
+// ------------------------------
+// Breakpoints - Set Viewports
+// ------------------------------
+$bp-1: 75em;    //1200px max-width of site content
+$bp-2: 60em;    //960px many of the site's elements are set at 950 so this kicks in right before
+$bp-3: 48.75em; //780px
+$bp-4: 42em;    //672px many of the site's elements are 650px so this kicks in right before
+$bp-5: 37.5em;  //600px
+$bp-6: 33.125em; //530px 
+$bp-7: 30em; //480px -- iphone 3/4g landscape is 480px wide
+$bp-8: 22.5em; //360px -- iphone is 320px and galaxy is 360px
+
+$mobile-bp: $bp-4; 
+
+$ie8-support: false;
+
+// // -------------------------------------------------------------
+// // Add new site specific variables to be used in _site.scss
+// // --------------------------------------------------------------
+$max-width: 73.750rem;
+$element-max-width: $bp-1;
+$mobile-padding: 1rem; //WARNING: using ems or percentages here will cause inconsistent spacing. Use rems or pixels.
+
+// ------------------------------
+// Icon helpers
+// ------------------------------
+
+$caret-right: "\203A";
+$caret-left: "\2039";
+$caret-down: "\2BC6";
+$caret-up: "\2BC5";
+$arrow-right: "\2192";
+$arrow-left: "\2190";
+$arrow-down: "\2193";
+$arrow-up: "\2191";
+$menu: "\2261";
+$close: "\2715";

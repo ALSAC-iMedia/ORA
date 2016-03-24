@@ -1,0 +1,365 @@
+@import 'bourbon'; // http://bourbon.io/
+
+@import 'ticket-slide/variables'; // colors, fonts etc...
+
+@import 'ticket-slide/mixins'; // custom mixins
+
+@import 'ticket-slide/layout'; // responsive grid and media queries
+
+
+*, *::after, *::before {
+	box-sizing: border-box;
+}
+
+ol, ul, li{padding:0; magin:0;}
+
+/* -------------------------------- 
+
+Projects
+
+-------------------------------- */
+
+.cd-projects-container {
+
+	width:70%; 
+	height:50vh;
+	margin:auto;
+
+	&.project-open {
+		/* smooth scroll on iOS devices */
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
+.ticket-list {
+	position: relative;
+	z-index: 2;
+	width: 80%;
+	margin:auto;
+	@include clearfix;
+
+	.slide-out{
+	transform:translateY(-130%);     
+	} 
+	&.slide-out{
+	transform:translateY(-130%);     
+	} 
+
+	li {
+		height: 400px;
+		overflow: hidden;
+		@include transition(transform .5s);
+		transition-duration: 1.3s;
+		/* Force Hardware Acceleration */
+		@include backface-visibility(hidden);
+		@include transform(translateZ(1px));
+
+		&.slide-out {
+			opacity: .9;
+			/* move selected project preview out of the viewport with no transition */
+			transition:transform .7s;
+
+		}
+
+		
+	}
+
+	a {
+		display: block;
+		height: 100vh;
+		width: 100%;
+		transform:translateY(0%);
+		opacity: 1;
+		transition:opacity .5s;
+	}
+
+	.bg-loaded a {
+		opacity: 1;
+	}
+
+}
+
+.slide-box {
+	left: 25vw;
+    width: 50vw;
+
+	> li {
+		position: absolute;
+		top: 300px;
+		opacity: 0;
+		transition:opacity .3s;
+
+		&.selected {
+			z-index: 1;
+			opacity: 1;
+			transition:opacity 0s;
+		}
+	}
+
+	.preview-image {
+		display: block;
+	}
+}
+
+.ticket-list a{
+	/* set a background image for each project */
+	background: rgba(5, 5, 50, .75);
+	position:absolute;
+}
+
+.ticket-list li{border:2px solid #ccc;}
+
+.cd-project-title {
+	width: 100%;
+	left: 0;
+	@include transition(transform .6s .2s);
+	text-align: center;
+	position:relative;
+	@include font-smoothing;
+
+	.no-touch .ticket-list a:hover &::after {
+		@include transform(translateX(-50%) scale(1));
+	}
+
+	.slide-box &::after {
+		@include transform(translateX(-50%) scale(1));
+		@include transition(transform .3s .3s);
+	}
+
+	p {
+		text-align:left;
+		padding:0 20px;
+		font-size:.9em;
+	}
+
+}
+
+.preview-image .cd-project-title{width:100%;}
+
+/*
+
+.ticket-list li:nth-of-type(2) .cd-project-title, 
+.slide-box > li:nth-of-type(2) .cd-project-title {
+	@include transform(translateY(100vh*(2/$items - $items/2 + 1)/$items));
+
+	@include MQ(M) {
+		@include transform(translateX(100%));
+	}
+}
+
+.ticket-list li:nth-of-type(3) .cd-project-title, 
+.slide-box > li:nth-of-type(3) .cd-project-title  {
+	@include transform(translateY(100vh*(2/$items - $items/2 + 2)/$items));
+
+	@include MQ(M) {
+		@include transform(translateX(200%));
+	}
+}
+
+*/
+
+
+
+.ticket-list li:nth-of-type(4) a .cd-project-title, 
+.cd-projects > li:nth-of-type(4) .cd-project-title  {
+	@include transform(translateY(100vh*(2/$items - $items/2 + 3)/$items));
+
+	@include MQ(M) {
+		@include transform(translateX(300%));
+	}
+}
+
+.slide-box li{
+	width:50vw;
+	margin:auto;
+	@include transform(translateY(50%));
+	}
+
+.slide-box li.selected{
+		transition-duration: 1.3s;
+		@include transition(transform .5s);
+		@include transform(translateY(-10px));
+		width:50vw;
+		left:25vw;
+		list-style:none;
+
+}
+
+.touch .slide-box li.selected .cd-project-title::after {
+	@include transition(transform 5s);
+}
+
+.cd-project-info {
+	display: none;
+	padding: 4em 0;
+	background-color: $color-6;
+	color: tint($color-5, 40%);
+
+	.content-visible & {
+		display: block;
+	}
+
+	p {
+		width: 90%;
+		max-width: 800px;
+		margin: 0 auto;
+		line-height: 2;
+	}
+}
+
+.cd-projects-container .scroll {
+	display: block;
+	position: absolute;
+	z-index: 2;
+	bottom: 30px;
+	left: 50%;
+	width: 44px;
+	height: 44px;
+
+	/* rest button default style */
+	cursor: pointer;
+	border: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	background: url('../img/cd-icon-arrow.svg') no-repeat center center;
+	visibility: hidden;
+	@include transform(translateX(-50%) scale(0));
+	@include transition(transform .3s 0s, visibility 0s .3s);
+}
+
+.cd-projects-container.project-open .scroll {
+	visibility: visible;
+	@include transform(translateX(-50%) scale(1));
+	@include transition(transform 0.4s 0s, visibility 0s 0s);
+	@include animation(cd-translate 1.2s 0.8s);
+	@include animation-iteration-count(2);
+}
+
+.no-touch .cd-projects-container.project-open .scroll:hover {
+	@include transform(translateX(-50%) scale(1.2));
+}
+
+@include keyframes(cd-translate) {
+	0% {
+		@include transform(translateX(-50%) scale(1));
+	}
+
+	50% {
+		@include transform(translateY(10px) translateX(-50%) scale(1));
+	}
+
+	100% {
+		@include transform(translateX(-50%) scale(1));
+	}
+}
+
+/* -------------------------------- 
+
+ Navigation
+
+-------------------------------- */
+
+.cd-primary-nav {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	text-align: center;
+	opacity: 0;
+	@include transition(opacity .6s);
+	/* vertically align its content */
+	display: table;
+
+	ul {
+		/* vertically align inside nav */
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	a {
+		display: inline-block;
+		padding: .4em 1em;
+		border-radius: 4px;
+		@include transition(background .2s);
+
+		color: $color-6;
+		font-family: $secondary-font;
+		font-size: 2.4rem;
+		font-weight: 700;
+		@include font-smoothing;
+
+		.no-touch &:hover {
+			background-color: $color-2;
+		}
+	}
+
+	.cd-label {
+		position: relative;
+		margin: 2.4em 0 2em;
+
+		color: $color-2;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 1.2rem;
+		letter-spacing: 1px;
+
+		&::after {
+			/* line below .cd-label*/
+			content: '';
+			position: absolute;
+			@include center(x);
+			bottom: -16px;
+			height: 1px;
+			width: 40px;
+			background-color: currentColor;
+		}
+	}
+
+	&.nav-visible {
+		opacity: 1;
+	}
+
+	&.nav-clickable {
+		z-index: 3;
+	}
+
+	.no-csstransitions &.nav-visible {
+		z-index: 3;
+	}
+
+	@include MQ(L) {
+
+		a {
+			font-size: 4rem;
+		}
+	}
+}
+
+/* -------------------------------- 
+
+JavaScript Disabled
+
+-------------------------------- */
+
+.no-js .cd-primary-nav {
+	display: block;
+	position: static;
+	opacity: 1;
+	margin-bottom: 1.5em;
+
+	ul {
+		display: block;
+		@include clearfix;
+		padding: 0 5%;
+	}
+
+	li:not(.cd-label) {
+		display: inline-block;
+	}
+}
